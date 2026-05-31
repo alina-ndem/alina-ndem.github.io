@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alina Nadeem · A Journey</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Syne:wght@400;500;600&family=Syne+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#f5f0e8; --ink:#2e2a24; --muted:#7a6f61;
+  --accent:#c0714f; --accent2:#6b7f8a;
+  --warm:#ece5d8; --line:#ddd5c3;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Syne',sans-serif;
+  --mono:'Syne Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;cursor:none}
+
+/* ═══ SCROLL CONTAINER ═══ */
+#scroll-container{
+  position:fixed;inset:0;overflow-y:scroll;overflow-x:hidden;
+  scroll-behavior:smooth;
+}
+#scroll-container::-webkit-scrollbar{display:none}
+
+/* ═══ SCENES ═══ */
+.scene{
+  position:relative;min-height:100vh;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+
+/* ═══ PARALLAX LAYERS ═══ */
+.para-layer{
+  position:absolute;inset:0;will-change:transform;pointer-events:none;
+}
+
+/* ═══ CANVAS LAYERS ═══ */
+canvas.fx{
+  position:absolute;inset:0;width:100%;height:100%;
+  pointer-events:none;
+}
+
+/* ═══ FIXED OVERLAYS ═══ */
+#grain{position:fixed;inset:0;z-index:9000;pointer-events:none;opacity:0.035}
+#progress-bar{
+  position:fixed;left:0;top:0;height:2px;z-index:8000;
+  background:var(--accent);width:0%;transition:width 0.1s linear;
+}
+#chapter-label{
+  position:fixed;left:40px;bottom:40px;z-index:8000;
+  font-family:var(--mono);font-size:9px;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--muted);
+  transition:color 0.5s,opacity 0.5s;
+}
+body.dark-ui #chapter-label{color:rgba(245,240,232,0.35)}
+#audio-btn{
+  position:fixed;right:40px;bottom:40px;z-index:8000;
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:9px;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--muted);
+  cursor:pointer;border:none;background:none;padding:0;
+  transition:color 0.3s;
+}
+#audio-btn:hover{color:var(--accent)}
+body.dark-ui #audio-btn{color:rgba(245,240,232,0.35)}
+body.dark-ui #audio-btn:hover{color:var(--accent)}
+.abars{display:flex;align-items:flex-end;gap:2px;height:14px}
+.abars span{display:block;width:2px;background:currentColor;border-radius:1px;height:4px;transform-origin:bottom}
+#audio-btn.playing .abars span:nth-child(1){animation:ab1 0.8s ease-in-out infinite}
+#audio-btn.playing .abars span:nth-child(2){animation:ab2 0.6s ease-in-out infinite}
+#audio-btn.playing .abars span:nth-child(3){animation:ab3 1.0s ease-in-out infinite}
+#audio-btn.playing .abars span:nth-child(4){animation:ab2 0.7s ease-in-out infinite 0.15s}
+@keyframes ab1{0%,100%{height:3px}50%{height:12px}}
+@keyframes ab2{0%,100%{height:7px}50%{height:3px}}
+@keyframes ab3{0%,100%{height:12px}50%{height:5px}}
+
+/* ═══ START SCREEN ═══ */
+#start{
+  position:fixed;inset:0;z-index:7000;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:#0f0d0b;overflow:hidden;
+  transition:opacity 1.4s ease,transform 1.4s ease;
+}
+#start.out{opacity:0;transform:scale(1.05);pointer-events:none}
+.s-shape{position:absolute;border-radius:50%;pointer-events:none}
+.s-s1{width:700px;height:700px;background:radial-gradient(circle,rgba(192,113,79,0.22) 0%,transparent 70%);top:-200px;right:-150px;animation:sdrift1 14s ease-in-out infinite}
+.s-s2{width:500px;height:500px;background:radial-gradient(circle,rgba(107,127,138,0.15) 0%,transparent 70%);bottom:-150px;left:-100px;animation:sdrift2 18s ease-in-out infinite}
+.s-s3{width:280px;height:280px;background:radial-gradient(circle,rgba(192,113,79,0.1) 0%,transparent 70%);top:45%;left:18%;animation:sdrift1 22s ease-in-out infinite reverse}
+@keyframes sdrift1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
+@keyframes sdrift2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
+.s-line{position:absolute;left:0;right:0;height:1px;background:rgba(245,240,232,0.04)}
+.s-corner{position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(245,240,232,0.12);text-transform:uppercase;opacity:0;animation:sfade 0.8s ease 1.8s forwards}
+.s-tl{top:36px;left:40px}
+.s-tr{top:36px;right:40px;text-align:right}
+.s-bl{bottom:36px;left:40px}
+.s-center{position:relative;z-index:2;text-align:center;display:flex;flex-direction:column;align-items:center}
+.s-eye{font-family:var(--mono);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(192,113,79,0.75);margin-bottom:44px;opacity:0;animation:sfade 0.9s ease 0.4s forwards}
+.s-name{font-family:var(--serif);font-size:clamp(54px,9vw,120px);font-weight:400;line-height:0.92;color:#f5f0e8;margin-bottom:20px;opacity:0;animation:sfade 1s ease 0.65s forwards}
+.s-name em{font-style:italic;color:var(--accent);display:block}
+.s-sub{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,232,0.28);margin-bottom:80px;opacity:0;animation:sfade 0.9s ease 0.9s forwards}
+.s-btn{
+  position:relative;display:flex;align-items:center;gap:20px;
+  background:none;border:1px solid rgba(192,113,79,0.55);
+  color:#f5f0e8;font-family:var(--mono);font-size:11px;
+  letter-spacing:0.22em;text-transform:uppercase;
+  padding:22px 50px;cursor:pointer;overflow:hidden;
+  opacity:0;animation:sfade 0.9s ease 1.15s forwards;
+  transition:border-color 0.3s,transform 0.2s;
+}
+.s-btn::before{content:'';position:absolute;inset:0;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform 0.45s cubic-bezier(0.77,0,0.18,1)}
+.s-btn:hover::before{transform:scaleX(1)}
+.s-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+.s-btn span,.s-btn-icon{position:relative;z-index:1}
+.s-btn-icon{width:30px;height:30px;border:1px solid rgba(245,240,232,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
+.s-pulse{position:absolute;inset:-1px;border:1px solid var(--accent);animation:pulse 2.5s ease-out 2s infinite;opacity:0}
+@keyframes pulse{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.09);opacity:0}}
+.s-vol{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,232,0.14);opacity:0;animation:sfade 0.8s ease 1.7s forwards;white-space:nowrap}
+@keyframes sfade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+
+/* ═══ SCENE 0: HERO ═══ */
+.sc0{min-height:100vh;background:radial-gradient(ellipse 90% 70% at 65% 55%,#ede5d8 0%,#f5f0e8 60%)}
+.sc0-float1,.sc0-float2{position:absolute;border-radius:50%;opacity:0.15}
+.sc0-float1{width:640px;height:640px;background:var(--accent);top:-200px;right:-80px;animation:f1 13s ease-in-out infinite}
+.sc0-float2{width:420px;height:420px;background:var(--accent2);bottom:-130px;left:-60px;animation:f2 16s ease-in-out infinite}
+@keyframes f1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-25px,18px) scale(1.04)}}
+@keyframes f2{0%,100%{transform:translate(0,0)}50%{transform:translate(18px,-22px)}}
+
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:80px;max-width:1100px;width:100%;padding:0 60px}
+.hero-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:32px}
+.hero-h1{font-family:var(--serif);font-size:clamp(54px,6.5vw,96px);font-weight:400;line-height:0.98;color:var(--ink);margin-bottom:28px}
+.hero-h1 em{font-style:italic;color:var(--accent)}
+.hero-body{font-size:14px;color:var(--muted);line-height:1.95;max-width:420px;margin-bottom:44px}
+.hero-cta{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color 0.2s}
+.hero-cta:hover{color:var(--accent)}
+.cta-arr{font-size:18px;animation:bounce 2.2s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+.hero-stats{display:flex;flex-direction:column;gap:18px}
+.stat-card{padding:24px 28px;border:1px solid var(--line);background:rgba(245,240,232,0.72);backdrop-filter:blur(10px)}
+.stat-n{font-family:var(--serif);font-style:italic;font-size:38px;color:var(--accent);line-height:1;margin-bottom:6px}
+.stat-l{font-family:var(--mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted)}
+
+/* ═══ SCENE 1: ABOUT (DARK) ═══ */
+.sc1{min-height:120vh;background:#1f1c18}
+.sc1-grid1,.sc1-grid2,.sc1-grid3,.sc1-grid4{position:absolute;left:0;right:0;height:1px;background:rgba(221,213,195,0.06)}
+.sc1-vert{position:absolute;width:1px;top:0;bottom:0;background:rgba(221,213,195,0.05)}
+
+.about-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:0 60px}
+.scene-tag{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(192,113,79,0.75);margin-bottom:36px}
+.scene-title{font-family:var(--serif);font-size:clamp(34px,4.5vw,60px);font-weight:400;line-height:1.08;margin-bottom:52px}
+.scene-title.light{color:#f5f0e8}
+.scene-title em{font-style:italic;color:var(--accent)}
+.about-cols{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.about-text p{font-size:13px;color:rgba(245,240,232,0.62);line-height:2.05;margin-bottom:16px}
+.about-text strong{color:#f5f0e8;font-weight:600}
+.skills-grid{display:flex;flex-direction:column;gap:0}
+.sk-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid rgba(245,240,232,0.09);font-size:12px;color:rgba(245,240,232,0.5);font-family:var(--mono);letter-spacing:0.06em;transition:color 0.2s;cursor:default}
+.sk-row:first-child{border-top:1px solid rgba(245,240,232,0.09)}
+.sk-row:hover{color:#f5f0e8}
+.sk-row span{font-size:9px;letter-spacing:0.1em;color:var(--accent)}
+
+/* ═══ SCENE 2: EXPERIENCE ═══ */
+.sc2{min-height:200vh;background:linear-gradient(160deg,#f5f0e8 0%,#ece5d8 100%)}
+.exp-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:80px 60px}
+.exp-row{display:grid;grid-template-columns:150px 1fr;gap:36px;padding:28px 0;border-bottom:1px solid var(--line)}
+.exp-row:first-child{border-top:1px solid var(--line)}
+.exp-date{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--muted);padding-top:4px;line-height:1.7}
+.exp-role{font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:3px}
+.exp-org{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
+.exp-desc{font-size:12px;color:var(--muted);line-height:1.9;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line);color:var(--muted)}
+
+/* ═══ SCENE 3: PROJECTS (DARK) ═══ */
+.sc3{min-height:130vh;background:#100e0c}
+.proj-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:0 60px}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(245,240,232,0.07);margin-top:44px}
+.proj-card{background:#130f0d;padding:30px 34px;transition:background 0.35s;cursor:default}
+.proj-card:hover{background:#1e1916}
+.proj-num{font-family:var(--serif);font-style:italic;font-size:24px;color:rgba(192,113,79,0.3);margin-bottom:12px;line-height:1}
+.proj-name{font-family:var(--serif);font-size:17px;color:#f5f0e8;margin-bottom:10px;transition:color 0.2s}
+.proj-card:hover .proj-name{color:var(--accent)}
+.proj-desc{font-size:12px;color:rgba(245,240,232,0.42);line-height:1.9;margin-bottom:12px}
+
+/* ═══ SCENE 4: CONTACT ═══ */
+.sc4{min-height:100vh;background:radial-gradient(ellipse 110% 90% at 25% 85%,#ddd5c3 0%,#f5f0e8 60%)}
+.contact-inner{position:relative;z-index:2;max-width:900px;width:100%;padding:0 60px;text-align:center}
+.contact-pre{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
+.contact-h{font-family:var(--serif);font-size:clamp(38px,5.5vw,76px);font-weight:400;line-height:1.03;color:var(--ink);margin-bottom:18px}
+.contact-h em{font-style:italic;color:var(--accent)}
+.contact-sub{font-size:14px;color:var(--muted);max-width:440px;margin:0 auto 50px;line-height:1.95}
+.contact-email{display:inline-block;font-family:var(--serif);font-style:italic;font-size:clamp(22px,2.8vw,36px);color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:5px;margin-bottom:54px;text-decoration:none;transition:color 0.2s}
+.contact-email:hover{color:var(--accent2)}
+.social{display:flex;align-items:center;justify-content:center;gap:44px}
+.soc-lnk{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;display:flex;align-items:center;gap:6px}
+.soc-lnk:hover{color:var(--accent)}
+
+/* ═══ SCROLL-DRIVEN REVEAL CLASSES ═══ */
+.reveal{
+  opacity:0;
+  transition:opacity 0.9s ease, transform 0.9s ease;
+}
+.reveal.from-bottom{transform:translateY(50px)}
+.reveal.from-left{transform:translateX(-60px)}
+.reveal.from-right{transform:translateX(60px)}
+.reveal.tilt-in{transform:translateY(40px) rotate(-3deg)}
+.reveal.scale-in{transform:scale(0.88)}
+.reveal.visible{opacity:1;transform:none}
+
+/* ═══ FLOATING DECO ELEMENTS ═══ */
+.deco-line{position:absolute;background:currentColor;pointer-events:none}
+.deco-circle{position:absolute;border-radius:50%;pointer-events:none}
+
+/* ═══ THE BOAT-STYLE: SCENE PARALLAX WORDS ═══ */
+.big-word{
+  position:absolute;font-family:var(--serif);font-style:italic;
+  color:rgba(192,113,79,0.06);line-height:1;pointer-events:none;
+  will-change:transform;
+}
+.big-word.dark{color:rgba(245,240,232,0.04)}
+
+/* ═══ TRANSITION WIPE ═══ */
+#wipe{position:fixed;inset:0;z-index:6500;pointer-events:none;background:var(--accent);transform:translateY(-100%);transition:transform 0.5s cubic-bezier(0.77,0,0.18,1)}
+#wipe.in{transform:translateY(0)}
+#wipe.out{transform:translateY(100%)}
+
+/* ═══ SIDE CHAPTER NAME ═══ */
+#side-name{
+  position:fixed;left:40px;top:50%;
+  transform:translateY(-50%) rotate(-90deg) translateX(50%);
+  transform-origin:center center;
+  font-family:var(--mono);font-size:9px;letter-spacing:0.22em;
+  text-transform:uppercase;color:rgba(180,170,155,0.35);
+  z-index:8000;white-space:nowrap;
+  transition:opacity 0.5s;margin-left:-60px;
+}
+body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
+
+/* ═══ SWAYING SCENE WRAPPER ═══ */
+.sway{
+  will-change:transform;
+  animation:sway 8s ease-in-out infinite;
+}
+@keyframes sway{
+  0%,100%{transform:rotate(0deg) translateX(0)}
+  25%{transform:rotate(0.4deg) translateX(3px)}
+  75%{transform:rotate(-0.3deg) translateX(-3px)}
+}
+
+/* ═══ MOBILE ═══ */
+@media(max-width:768px){
+  .hero-grid{grid-template-columns:1fr;gap:36px;padding:0 24px}
+  .hero-stats{display:none}
+  .about-cols,.proj-grid{grid-template-columns:1fr}
+  .exp-row{grid-template-columns:1fr;gap:6px}
+  .about-inner,.exp-inner,.proj-inner,.contact-inner{padding:60px 24px}
+  #chapter-label,#side-name{display:none}
+  #audio-btn{right:20px;bottom:20px}
+}
+
+/* ═══ SIDE NAV ═══ */
+#side-nav {
+  position: fixed;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 8000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 20px;
+}
+.snav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+.snav-label {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.25s, transform 0.25s, color 0.3s;
+  white-space: nowrap;
+}
+.snav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+.snav-item:hover .snav-label,
+.snav-item.active .snav-label {
+  opacity: 1;
+  transform: translateX(0);
+}
+.snav-item.active .snav-dot {
+  background: var(--accent);
+  transform: scale(1.5);
+  box-shadow: 0 0 6px var(--accent);
+}
+.snav-item:hover .snav-dot {
+  background: var(--accent);
+  transform: scale(1.25);
+}
+body.dark-ui .snav-label { color: rgba(245,240,232,0.4); }
+body.dark-ui .snav-dot   { background: rgba(245,240,232,0.25); }
+body.dark-ui .snav-item.active .snav-dot,
+body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); }
+body.dark-ui .snav-item.active .snav-label,
+body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
+@media(max-width:768px){ #side-nav { display: none; } }
+
+/* ── TYPEWRITER CURSOR ── */
+.tw-cursor {
+  display: inline-block;
+  width: 2px; height: 0.8em;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: tw-blink 1s step-end infinite;
+}
+@keyframes tw-blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+
+<!-- GRAIN -->
+<canvas id="grain"></canvas>
+<!-- CURSOR FX -->
+<canvas id="cursor-fx" style="position:fixed;inset:0;z-index:9500;pointer-events:none;"></canvas>
+<!-- PROGRESS -->
+<div id="progress-bar"></div>
+<!-- WIPE -->
+<div id="wipe"></div>
+<!-- SIDE NAME -->
+<div id="side-name">Alina Nadeem</div>
+<!-- CHAPTER LABEL -->
+<div id="chapter-label">01 · Intro</div>
+<!-- AUDIO BUTTON -->
+<button id="audio-btn" aria-label="Toggle music">
+  <div class="abars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+  <span id="audio-lbl">Music off</span>
+</button>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SIDE NAV -->
+<nav id="side-nav">
+  <button class="snav-item active" data-target="sc0"><span class="snav-label">Intro</span><span class="snav-dot"></span></button>
+  <button class="snav-item" data-target="sc1"><span class="snav-label">About</span><span class="snav-dot"></span></button>
+  <button class="snav-item" data-target="sc2"><span class="snav-label">Experience</span><span class="snav-dot"></span></button>
+  <button class="snav-item" data-target="sc3"><span class="snav-label">Projects</span><span class="snav-dot"></span></button>
+  <button class="snav-item" data-target="sc4"><span class="snav-label">Contact</span><span class="snav-dot"></span></button>
+</nav>
+
+<!-- START SCREEN -->
+<div id="start">
+  <canvas id="start-wind" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1"></canvas>
+  <div class="s-shape s-s1"></div>
+  <div class="s-shape s-s2"></div>
+  <div class="s-shape s-s3"></div>
+  <div class="s-line" style="top:22%"></div>
+  <div class="s-line" style="top:50%"></div>
+  <div class="s-line" style="top:78%"></div>
+  <div class="s-corner s-tl">Portfolio · 2026</div>
+  <div class="s-corner s-tr">Al Ain, UAE<br>Data · Strategy · Communication</div>
+  <div class="s-center">
+    <p class="s-eye">A story of ambition</p>
+    <h1 class="s-name">Alina<br><em>Nadeem</em></h1>
+    <p class="s-sub">CEO · Data Analyst · Brand Strategist</p>
+    <button class="s-btn" id="startBtn">
+      <div class="s-pulse"></div>
+      <div class="s-btn-icon">▶</div>
+      <span>Begin the journey</span>
+    </button>
+  </div>
+  <p class="s-vol">↑ Turn up your volume ♪</p>
+
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SCROLL CONTAINER -->
+<div id="scroll-container">
+
+<!-- ═══ SCENE 0: HERO ═══ -->
+<section class="scene sc0" id="sc0">
+  <!-- parallax bg blobs -->
+  <div class="para-layer sc0-float1" data-speed="0.3"></div>
+  <div class="para-layer sc0-float2" data-speed="0.2"></div>
+  <!-- atmospheric big word -->
+  <div class="big-word" style="font-size:28vw;top:-4%;right:-8%;opacity:1" data-speed="-0.15">A</div>
+  <!-- canvas for this scene -->
+  <canvas class="fx" id="cx0"></canvas>
+  <!-- content -->
+  <div class="hero-grid sway">
+    <div>
+      <p class="hero-tag reveal from-bottom" id="tw-hero"></p>
+      <h1 class="hero-h1 reveal from-bottom" style="transition-delay:0.15s">I'm Alina<br><em>Nadeem.</em></h1>
+      <p class="hero-body reveal from-bottom" style="transition-delay:0.3s">
+        CEO. Data analyst. Brand strategist. Based in Al Ain, UAE.<br>
+        I build things from the ground up — from launching a veterinary clinic to running 700K-reach ad campaigns. I bridge data, design, and communication to drive real-world results.
+      </p>
+      <div class="hero-cta reveal from-bottom" style="transition-delay:0.45s" onclick="scrollToScene(1)">
+        Begin the journey <span class="cta-arr">↓</span>
+      </div>
+    </div>
+    <div class="hero-stats reveal from-right" style="transition-delay:0.5s">
+      <div class="stat-card"><div class="stat-n">700K+</div><div class="stat-l">Ad campaign reach</div></div>
+      <div class="stat-card"><div class="stat-n">1,000</div><div class="stat-l">Customers in 2 months</div></div>
+      <div class="stat-card"><div class="stat-n">Summa</div><div class="stat-l">B.S. Organizational Communication · ECU</div></div>
+      <div class="stat-card"><div class="stat-n">UC Berkeley</div><div class="stat-l">Professional Program in Data Analysis</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCENE 1: ABOUT (DARK) ═══ -->
+<section class="scene sc1" id="sc1">
+  <div class="sc1-grid1" style="top:20%"></div>
+  <div class="sc1-grid2" style="top:40%"></div>
+  <div class="sc1-grid3" style="top:60%"></div>
+  <div class="sc1-grid4" style="top:80%"></div>
+  <div class="sc1-vert" style="left:50%"></div>
+  <div class="big-word dark" style="font-size:22vw;bottom:5%;left:-3%" data-speed="0.2">Story</div>
+  <canvas class="fx" id="cx1"></canvas>
+  <div class="about-inner">
+    <p class="scene-tag reveal from-bottom">About</p>
+    <h2 class="scene-title light reveal tilt-in" style="transition-delay:0.1s">The person behind<br>the <em>data.</em></h2>
+    <div class="about-cols">
+      <div class="about-text reveal from-left" style="transition-delay:0.25s">
+        <p>I hold a <strong>B.S. in Interpersonal &amp; Organizational Communication</strong> (Summa Cum Laude) with a Business Administration minor from East Carolina University — and I've spent years stacking hard skills on top of that foundation.</p>
+        <p>I'm currently the <strong>CEO of Pawsitive Vibes Veterinary Clinic</strong> in Al Ain, where I led the launch end-to-end: licensing, branding, hiring, financial modeling, and growth campaigns that reached <strong>700K+ users</strong> and onboarded 1,000 customers in two months.</p>
+        <p>In parallel, I'm in the <strong>Professional Program in Data Analysis at UC Berkeley Extension</strong> — working with Python, Tableau, and real datasets. Certified <strong>QuickBooks Online ProAdvisor</strong>, <strong>Microsoft Office Specialist</strong>, and <strong>Google IT Support Specialist</strong>.</p>
+      </div>
+      <div class="skills-grid reveal from-right" style="transition-delay:0.35s">
+        <div class="sk-row">Python · R · SQL<span>Analysis</span></div>
+        <div class="sk-row">Tableau · Power BI · Excel<span>Visualization</span></div>
+        <div class="sk-row">Adobe Illustrator · Photoshop · InDesign<span>Design</span></div>
+        <div class="sk-row">Google Ads · Meta Ads · SEO<span>Marketing</span></div>
+        <div class="sk-row">QuickBooks Online · Power Query<span>Finance</span></div>
+        <div class="sk-row">Communication Strategy<span>Core</span></div>
+        <div class="sk-row">Branding · UX Design · Canva<span>Creative</span></div>
+        <div class="sk-row">Google IT Support · MOS Certified<span>Certified</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCENE 2: EXPERIENCE ═══ -->
+<section class="scene sc2" id="sc2" style="align-items:flex-start">
+  <div class="big-word" style="font-size:20vw;top:8%;right:-5%;opacity:1" data-speed="-0.1">Work</div>
+  <canvas class="fx" id="cx2"></canvas>
+  <div class="exp-inner">
+    <p class="scene-tag reveal from-bottom">Experience</p>
+    <h2 class="scene-title reveal tilt-in" style="color:var(--ink);transition-delay:0.1s">What I've <em>done.</em></h2>
+
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.2s">
+      <div class="exp-date">Dec 2024 – Present</div>
+      <div>
+        <div class="exp-role">Chief Executive Officer</div>
+        <div class="exp-org">Pawsitive Vibes Veterinary Clinic · Al Ain, UAE</div>
+        <p class="exp-desc">Led the clinic's full launch — startup operations, licensing, regulatory compliance, and government liaison. Built the brand from scratch: logo, signage, website, and social media. Led Google &amp; Meta Ads campaigns reaching 700K+ users and onboarding 1,000 customers in two months.</p>
+        <div class="tags"><span class="tag">Google Ads</span><span class="tag">Meta Ads</span><span class="tag">QuickBooks</span><span class="tag">Branding</span><span class="tag">Operations</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.3s">
+      <div class="exp-date">Apr 2024 – May 2024</div>
+      <div>
+        <div class="exp-role">CADP Analyst Trainee</div>
+        <div class="exp-org">JPMorgan Chase &amp; Co. · New York, USA</div>
+        <p class="exp-desc">Built a Tableau and Excel visualization dashboard, documented a business process and identified improvement opportunities, and developed a PowerPoint presentation to communicate key findings to stakeholders.</p>
+        <div class="tags"><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag">PowerPoint</span><span class="tag">Stakeholder Comms</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.35s">
+      <div class="exp-date">Apr 2024</div>
+      <div>
+        <div class="exp-role">Technology Trainee</div>
+        <div class="exp-org">Deloitte Australia · Forage Job Simulation</div>
+        <p class="exp-desc">Unified two data models using Python and classified data in Excel to draw business conclusions. Created a Tableau dashboard and assisted in cybersecurity breach analysis.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Tableau</span><span class="tag">Cybersecurity</span><span class="tag">Excel</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.4s">
+      <div class="exp-date">Mar 2024 – Apr 2024</div>
+      <div>
+        <div class="exp-role">Apprentice — Data Analytics</div>
+        <div class="exp-org">UC Berkeley Extension · Berkeley, California</div>
+        <p class="exp-desc">Developed a Python program to analyze a dataset uncovering key trends in the data analytics field. Automated downloads, used Matplotlib for visualization, and SQLite for storage — reducing processing time by 30% and increasing insights by 25%.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Matplotlib</span><span class="tag">SQLite</span><span class="tag">Data Analysis</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.45s">
+      <div class="exp-date">Mar 2023 – Apr 2023</div>
+      <div>
+        <div class="exp-role">Data Analytics Trainee</div>
+        <div class="exp-org">KPMG Forage · Data Analytics Consulting</div>
+        <p class="exp-desc">Identified data quality issues and proposed mitigation strategies. Conducted analysis covering distributions, feature engineering, modeling, and reporting, and built a dashboard with recommendations for Sprocket Central Pty Ltd.</p>
+        <div class="tags"><span class="tag">Data Quality</span><span class="tag">Feature Engineering</span><span class="tag">Tableau</span><span class="tag">Consulting</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.5s">
+      <div class="exp-date">Sep 2022 – Dec 2022</div>
+      <div>
+        <div class="exp-role">Support General Admin Assistant</div>
+        <div class="exp-org">Akar Landscaping Services · Al Ain, UAE</div>
+        <p class="exp-desc">Developed and executed a PPE training program for construction staff. Produced a commercial video and built Excel sheets for business impact analysis.</p>
+        <div class="tags"><span class="tag">Excel</span><span class="tag">Training</span><span class="tag">Video Production</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.55s">
+      <div class="exp-date">Aug 2021 – Oct 2021</div>
+      <div>
+        <div class="exp-role">Social Media Marketer</div>
+        <div class="exp-org">Super Sport · Al Ain, UAE</div>
+        <p class="exp-desc">Created the official logo and produced digital banner, print, and video ads — driving consistent engagement across 2.4K followers. Boosted traffic by 60% and increased engagement rates by 34%.</p>
+        <div class="tags"><span class="tag">SEO</span><span class="tag">Graphic Design</span><span class="tag">Social Media</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.6s">
+      <div class="exp-date">Jun 2021 – Aug 2021</div>
+      <div>
+        <div class="exp-role">Social Media TikTok Intern</div>
+        <div class="exp-org">The Dean's List · Charlotte, NC, USA</div>
+        <p class="exp-desc">Designed and executed a global social media strategy across LinkedIn, Twitter, Facebook, and Instagram for an audience of 10.5K followers. Increased engagement by 15%.</p>
+        <div class="tags"><span class="tag">Social Strategy</span><span class="tag">Content Creation</span><span class="tag">TikTok</span></div>
+      </div>
+    </div>
+    <div class="exp-row reveal from-bottom" style="transition-delay:0.65s">
+      <div class="exp-date">May 2021 – Aug 2021</div>
+      <div>
+        <div class="exp-role">Digital Marketing Trainee</div>
+        <div class="exp-org">London International Studies &amp; Research Center · Dubai, UAE</div>
+        <p class="exp-desc">Managed paid campaigns across multiple advertising platforms. Implemented SEO strategies using Ahrefs and SEMRush. Enhanced SEO with Hotjar and Google Search Console.</p>
+        <div class="tags"><span class="tag">Paid Ads</span><span class="tag">SEO</span><span class="tag">Ahrefs</span><span class="tag">WordPress</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCENE 3: PROJECTS (DARK) ═══ -->
+<section class="scene sc3" id="sc3">
+  <div class="big-word dark" style="font-size:24vw;top:-2%;left:-4%" data-speed="0.18">Build</div>
+  <canvas class="fx" id="cx3"></canvas>
+  <div class="proj-inner">
+    <p class="scene-tag reveal from-bottom" style="color:rgba(192,113,79,0.75)">Projects</p>
+    <h2 class="scene-title light reveal tilt-in" style="transition-delay:0.1s">Things I've <em>built.</em></h2>
+    <div class="proj-grid">
+      <div class="proj-card reveal scale-in" style="transition-delay:0.2s">
+        <div class="proj-num">01</div>
+        <div class="proj-name">Pet Supply Sales Analysis</div>
+        <p class="proj-desc">Full pipeline analysis — merged competitor datasets, surfaced seasonality and pricing patterns, visualized in Tableau. Deliverable: executive dashboard + video.</p>
+        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Pandas</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span></div>
+      </div>
+      <div class="proj-card reveal scale-in" style="transition-delay:0.28s">
+        <div class="proj-num">02</div>
+        <div class="proj-name">Creative vs. IT Jobs — D3 Visualization</div>
+        <p class="proj-desc">Interactive D3.js line chart exploring U.S. employment trends in Creative and IT fields with animated drawing and editorial visual design.</p>
+        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">D3.js</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">JavaScript</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">BLS Data</span></div>
+      </div>
+      <div class="proj-card reveal scale-in" style="transition-delay:0.36s">
+        <div class="proj-num">03</div>
+        <div class="proj-name">Stakeholder Visualization Dashboard</div>
+        <p class="proj-desc">Executive-facing Tableau dashboard translating messy business data into a clear story for non-technical decision-makers — paired with PowerPoint and narrated walkthrough.</p>
+        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Excel</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Storytelling</span></div>
+      </div>
+      <div class="proj-card reveal scale-in" style="transition-delay:0.44s">
+        <div class="proj-num">04</div>
+        <div class="proj-name">AI for Everyone — Literacy Initiative</div>
+        <p class="proj-desc">Interdisciplinary AI literacy course advocating for human-centered AI education that meets non-technical audiences where they are.</p>
+        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">AI Literacy</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Communication</span></div>
+      </div>
+      <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.52s">
+        <div class="proj-num">05</div>
+        <div class="proj-name">This Portfolio</div>
+        <p class="proj-desc">A hand-coded scroll-journey portfolio — no templates, no frameworks. Designed to reflect my approach: clean structure, clear communication, data-informed decisions. Hosted on GitHub Pages.</p>
+        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">HTML</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">CSS</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">JavaScript</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">GitHub Pages</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCENE 4: CONTACT ═══ -->
+<section class="scene sc4" id="sc4">
+  <div class="big-word" style="font-size:22vw;bottom:-2%;right:-4%;opacity:1" data-speed="-0.12">Hello</div>
+  <canvas class="fx" id="cx4"></canvas>
+  <div class="contact-inner">
+    <p class="contact-pre reveal from-bottom">Let's connect</p>
+    <h2 class="contact-h reveal tilt-in" style="transition-delay:0.1s">Get in <em>touch.</em></h2>
+    <p class="contact-sub reveal from-bottom" style="transition-delay:0.25s">Have a project, collaboration, or conversation in mind? I'm always open — whether it's about data, communication, AI, or something at the intersection of all three.</p>
+    <a href="mailto:alinandem@outlook.com" class="contact-email reveal scale-in" style="transition-delay:0.4s">alinandem@outlook.com</a>
+    <div class="social reveal from-bottom" style="transition-delay:0.55s">
+      <a href="https://www.linkedin.com/in/alina-nadeem/" target="_blank" class="soc-lnk">LinkedIn ↗</a>
+      <a href="https://portfolium.com/AlinaNadeem" target="_blank" class="soc-lnk">Portfolium ↗</a>
+      <a href="mailto:alinandem@outlook.com" class="soc-lnk">Email →</a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /scroll-container -->
+
+<script>
+
+// ════════════════════════════════════════════════
+// MUSIC ENGINE
+// Homepage: Clair Obscur
+// After Begin Journey: Obstacles
+// ════════════════════════════════════════════════
+
+const Music = (function () {
+
+  let introAudio;
+  let mainAudio;
+  let currentAudio;
+  let playing = false;
+
+  function init() {
+
+    if (introAudio) return;
+
+    introAudio = new Audio("Clair-Obscur-Lumiere.mp3");
+    introAudio.loop = true;
+    introAudio.volume = 0.18;
+    introAudio.preload = "auto";
+
+    mainAudio = new Audio("Obstacles (Instrumental).mp3");
+    mainAudio.loop = true;
+    mainAudio.volume = 0.18;
+    mainAudio.preload = "auto";
+  }
+
+  async function playIntro() {
+
+    init();
+
+    try {
+
+      if (currentAudio && currentAudio !== introAudio) {
+        currentAudio.pause();
+      }
+
+      currentAudio = introAudio;
+
+      if (introAudio.paused) {
+        await introAudio.play();
+      }
+
+      playing = true;
+      updateAudioBtn(true);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async function playMain() {
+
+    init();
+
+    try {
+
+      if (currentAudio) {
+        currentAudio.pause();
+      }
+
+      currentAudio = mainAudio;
+      mainAudio.currentTime = 0;
+
+      await mainAudio.play();
+
+      playing = true;
+      updateAudioBtn(true);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  function stop() {
+
+    if (!currentAudio) return;
+
+    currentAudio.pause();
+
+    playing = false;
+    updateAudioBtn(false);
+  }
+
+  async function toggle() {
+
+    if (!currentAudio) return;
+
+    if (playing) {
+
+      currentAudio.pause();
+      playing = false;
+
+    } else {
+
+      await currentAudio.play();
+      playing = true;
+
+    }
+
+    updateAudioBtn(playing);
+  }
+
+  return {
+    playIntro,
+    playMain,
+    stop,
+    toggle,
+    isPlaying: () => playing
+  };
+
+})();
+
+let musicPlaying = false;
+
+function startMusic() {
+  Music.playMain();
+  musicPlaying = true;
+}
+
+function stopMusic() {
+  Music.stop();
+  musicPlaying = false;
+}
+
+function toggleMusic() {
+  Music.toggle();
+  musicPlaying = Music.isPlaying();
+}
+
+function updateAudioBtn(on) {
+
+  const btn = document.getElementById('audio-btn');
+  const lbl = document.getElementById('audio-lbl');
+
+  btn.classList.toggle('playing', on);
+  lbl.textContent = on ? 'Music on' : 'Music off';
+}
+
+document.getElementById('audio-btn').addEventListener('click', toggleMusic);
+
+// Start Clair Obscur on first interaction
+document.addEventListener('pointerdown', () => {
+  Music.playIntro();
+}, { once: true });
+
+
+// ════════════════════════════════════════════════
+// START SCREEN
+// ════════════════════════════════════════════════
+document.getElementById('startBtn').addEventListener('click', async function() {
+
+  await Music.playMain();
+
+  musicPlaying = true;
+
+  const s = document.getElementById('start');
+
+  s.classList.add('out');
+
+  setTimeout(() => {
+    s.style.display = 'none';
+  }, 1500);
+
+  setTimeout(triggerVisible, 200);
+});
+
+// ════════════════════════════════════════════════
+// SCROLL ENGINE
+// ════════════════════════════════════════════════
+const sc = document.getElementById('scroll-container');
+const scenes = document.querySelectorAll('.scene');
+const SCENE_NAMES = ['01 · Intro','02 · About','03 · Experience','04 · Projects','05 · Contact'];
+const SIDE_NAMES = ['Alina Nadeem','The Person','The Work','The Projects','The Connection'];
+const DARK_SCENES = new Set([1,3]);
+
+let lastScrollY = 0;
+let ticking = false;
+let currentScene = 0;
+
+function scrollToScene(idx) {
+  const target = scenes[idx];
+  if (target) {
+    sc.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+  }
+}
+
+// Side nav click wiring
+document.querySelectorAll('.snav-item').forEach((btn, i) => {
+  btn.addEventListener('click', () => scrollToScene(i));
+});
+
+sc.addEventListener('scroll', () => {
+  lastScrollY = sc.scrollTop;
+  if (!ticking) {
+    requestAnimationFrame(() => {
+      onScroll();
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+function onScroll() {
+  const sy = sc.scrollTop;
+  const sh = sc.scrollHeight - window.innerHeight;
+  
+  // Progress bar
+  document.getElementById('progress-bar').style.width = (sy / sh * 100) + '%';
+
+  // Detect current scene
+  let ci = 0;
+  scenes.forEach((s, i) => {
+    if (sy >= s.offsetTop - window.innerHeight * 0.4) ci = i;
+  });
+
+  if (ci !== currentScene) {
+    currentScene = ci;
+    document.getElementById('chapter-label').textContent = SCENE_NAMES[ci];
+    document.getElementById('side-name').textContent = SIDE_NAMES[ci];
+    const dark = DARK_SCENES.has(ci);
+    document.body.classList.toggle('dark-ui', dark);
+    // Update side nav active state
+    document.querySelectorAll('.snav-item').forEach((btn, i) => {
+      btn.classList.toggle('active', i === ci);
+    });
+  }
+
+  // Parallax big words
+  document.querySelectorAll('.big-word[data-speed]').forEach(el => {
+    const rect = el.closest('.scene').getBoundingClientRect();
+    const speed = parseFloat(el.dataset.speed || 0);
+    const offset = rect.top * speed;
+    el.style.transform = `translateY(${offset}px)`;
+  });
+
+  // Reveal on scroll
+  triggerVisible();
+}
+
+function triggerVisible() {
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.88 && r.bottom > 0) {
+      el.classList.add('visible');
+    }
+  });
+}
+
+// ════════════════════════════════════════════════
+// GRAIN OVERLAY
+// ════════════════════════════════════════════════
+(function(){
+  const cv = document.getElementById('grain');
+  const ctx = cv.getContext('2d');
+  let fr = 0;
+  function resize() { cv.width = window.innerWidth; cv.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  function draw() {
+    const w = cv.width, h = cv.height;
+    const img = ctx.createImageData(w, h);
+    const d = img.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const v = (Math.random() * 255) | 0;
+      d[i] = d[i+1] = d[i+2] = v; d[i+3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+    fr++;
+    if (fr % 3 === 0) setTimeout(draw, 55); else requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ════════════════════════════════════════════════
+// PER-SCENE PARTICLE CANVASES
+// ════════════════════════════════════════════════
+(function() {
+  const CONFIGS = [
+    // sc0 hero: warm gold dust
+    { count:45, color:'192,113,79', minR:1, maxR:2.8, speed:0.22, drift:0.18, alpha:0.55 },
+    // sc1 about dark: cool silver sparks
+    { count:65, color:'200,190,175', minR:0.4, maxR:1.6, speed:0.18, drift:0.22, alpha:0.45 },
+    // sc2 experience: light paper motes
+    { count:30, color:'192,113,79', minR:1.2, maxR:2.2, speed:0.15, drift:0.1, alpha:0.4 },
+    // sc3 projects dark: ember glow
+    { count:80, color:'220,130,80', minR:0.4, maxR:2.2, speed:0.28, drift:0.28, alpha:0.55 },
+    // sc4 contact: airy blue-grey motes
+    { count:35, color:'107,127,138', minR:1, maxR:2.5, speed:0.14, drift:0.12, alpha:0.45 },
+  ];
+
+  scenes.forEach((scene, idx) => {
+    const cv = document.getElementById(`cx${idx}`);
+    if (!cv) return;
+    const ctx = cv.getContext('2d');
+    const cfg = CONFIGS[idx];
+    let W, H, particles = [];
+
+    function resize() {
+      W = cv.width = scene.offsetWidth || window.innerWidth;
+      H = cv.height = scene.offsetHeight || window.innerHeight;
+    }
+    resize();
+    new ResizeObserver(resize).observe(scene);
+
+    function makeP() {
+      return {
+        x: Math.random() * W,
+        y: H + 5,
+        r: cfg.minR + Math.random() * (cfg.maxR - cfg.minR),
+        vx: (Math.random() - 0.5) * cfg.drift,
+        vy: -cfg.speed * (0.5 + Math.random()),
+        op: 0.05 + Math.random() * cfg.alpha,
+        life: Math.random(),
+        decay: 0.0008 + Math.random() * 0.0015,
+        color: cfg.color
+      };
+    }
+    particles = Array.from({ length: cfg.count }, () => {
+      const p = makeP();
+      p.y = Math.random() * H; // scatter initially
+      p.life = Math.random();
+      return p;
+    });
+
+    function loop() {
+      ctx.clearRect(0, 0, W, H);
+      particles.forEach((p, i) => {
+        p.x += p.vx; p.y += p.vy; p.life -= p.decay;
+        if (p.life <= 0 || p.y < -10 || p.x < -10 || p.x > W + 10) {
+          particles[i] = makeP(); return;
+        }
+        const a = p.op * Math.min(p.life * 3, 1);
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color},${a})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  });
+})();
+
+// ════════════════════════════════════════════════
+// MOUSE PARALLAX (THE BOAT-STYLE DEPTH)
+// ════════════════════════════════════════════════
+(function(){
+  let mx = 0, my = 0, cx = 0.5, cy = 0.5;
+  window.addEventListener('mousemove', e => {
+    mx = (e.clientX / window.innerWidth - 0.5) * 2;
+    my = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+  function tick() {
+    cx += (mx - cx) * 0.06;
+    cy += (my - cy) * 0.06;
+    // Apply depth to big words
+    document.querySelectorAll('.big-word').forEach((el, i) => {
+      const depth = 10 + i * 4;
+      const base = parseFloat(el.style.transform?.match(/translateY\(([^)]+)\)/)?.[1] || 0);
+      el.style.transform = `translateY(${base}px) translate(${cx * depth}px, ${cy * depth * 0.5}px)`;
+    });
+    // Subtle sway on hero content
+    const heroGrid = document.querySelector('.hero-grid');
+    if (heroGrid) {
+      heroGrid.style.transform = `rotate(${cx * 0.3}deg) translateX(${cx * 5}px) translateY(${cy * 3}px)`;
+    }
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+// ════════════════════════════════════════════════
+// SCENE TRANSITION FLASH (The Boat: dramatic cuts)
+// ════════════════════════════════════════════════
+(function(){
+  let lastScene = -1;
+  sc.addEventListener('scroll', () => {
+    let ci = 0;
+    scenes.forEach((s, i) => {
+      if (sc.scrollTop >= s.offsetTop - window.innerHeight * 0.5) ci = i;
+    });
+    if (ci !== lastScene && lastScene !== -1) {
+      const wipe = document.getElementById('wipe');
+      wipe.classList.add('in');
+      setTimeout(() => { wipe.classList.remove('in'); wipe.classList.add('out'); }, 80);
+      setTimeout(() => { wipe.classList.remove('out'); }, 560);
+    }
+    lastScene = ci;
+  }, { passive: true });
+})();
+
+// ════════════════════════════════════════════════
+// SCENE CANVAS: LIVE INK-STROKE LINES (The Boat style)
+// ════════════════════════════════════════════════
+(function(){
+  // Add a secondary fixed canvas for dramatic ink strokes on scroll
+  const cv = document.createElement('canvas');
+  cv.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:50;opacity:0.55';
+  document.body.appendChild(cv);
+  const ctx = cv.getContext('2d');
+  let W, H;
+
+  function resize() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  let strokes = [];
+  let lastSY = 0;
+  let scrollSpeed = 0;
+
+  sc.addEventListener('scroll', () => {
+    scrollSpeed = Math.abs(sc.scrollTop - lastSY);
+    lastSY = sc.scrollTop;
+    // Spawn ink strokes on fast scroll
+    if (scrollSpeed > 8) {
+      const count = Math.min(Math.floor(scrollSpeed / 6), 4);
+      for (let k = 0; k < count; k++) {
+        strokes.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          len: 40 + Math.random() * 120,
+          angle: -Math.PI/2 + (Math.random() - 0.5) * 1.2,
+          alpha: 0.3 + Math.random() * 0.4,
+          life: 1,
+          decay: 0.04 + Math.random() * 0.06,
+          w: 0.5 + Math.random() * 1.5,
+          color: currentScene === 1 || currentScene === 3 ?
+            `rgba(245,240,232,` : `rgba(192,113,79,`
+        });
+      }
+    }
+  }, { passive: true });
+
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    strokes = strokes.filter(s => s.life > 0);
+    strokes.forEach(s => {
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.rotate(s.angle);
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(s.len * s.life, 0);
+      ctx.strokeStyle = s.color + (s.alpha * s.life).toFixed(3) + ')';
+      ctx.lineWidth = s.w;
+      ctx.stroke();
+      ctx.restore();
+      s.life -= s.decay;
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ════════════════════════════════════════════════
+// INITIAL REVEAL + RESIZE
+// ════════════════════════════════════════════════
+
+window.addEventListener('resize', triggerVisible);
+// Hero scene reveals after start screen dismissal are handled in startBtn click
+
+// ════════════════════════════════════════════════
+// START SCREEN WIND — gaming homepage leaves
+// ════════════════════════════════════════════════
+(function () {
+  const cv = document.getElementById('start-wind');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H;
+
+  function resize() {
+    W = cv.width  = window.innerWidth;
+    H = cv.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // ── colour palettes ──────────────────────────────
+  // Leaf colours: deep forest greens + amber autumn tones against dark bg
+  const LEAF_COLS  = ['180,130,60','160,110,45','140,170,80','100,140,60','200,150,70','120,155,70'];
+  const STREAK_COLS= ['192,113,79','210,140,80','170,100,60','230,160,90'];
+  const EMBER_COLS = ['220,140,70','200,110,50','240,170,90','180,90,40'];
+
+  // ── GUST ENGINE ──────────────────────────────────
+  let gust = 1, gustTarget = 1, gustTimer = 0;
+  function updateGust() {
+    gustTimer++;
+    if (gustTimer > 70 + Math.random() * 100) {
+      gustTarget = 0.3 + Math.random() * 2.2;
+      gustTimer = 0;
+    }
+    gust += (gustTarget - gust) * 0.025;
+  }
+
+  // ── LEAVES ───────────────────────────────────────
+  const LEAVES = [];
+  const N_LEAVES = 38;
+
+  function makeLeaf(seed) {
+    const size = 5 + Math.random() * 14;
+    const spd  = 0.8 + Math.random() * 2.8;
+    return {
+      x:    seed ? Math.random() * W * 1.1 : -size * 2,
+      y:    Math.random() * H,
+      size,
+      spd,
+      vy:   (Math.random() - 0.48) * 1.1,
+      rot:  Math.random() * Math.PI * 2,
+      rotV: (Math.random() - 0.5) * 0.055,
+      wobble: Math.random() * Math.PI * 2,
+      wobF:  0.02 + Math.random() * 0.03,
+      wobA:  0.6 + Math.random() * 2.2,
+      col:  LEAF_COLS[Math.floor(Math.random() * LEAF_COLS.length)],
+      a:    0.35 + Math.random() * 0.55,
+      // leaf shape variant 0=oval 1=maple-ish 2=long
+      type: Math.floor(Math.random() * 3),
+    };
+  }
+  for (let i = 0; i < N_LEAVES; i++) LEAVES.push(makeLeaf(true));
+
+  function drawLeaf(l) {
+    ctx.save();
+    ctx.translate(l.x, l.y);
+    ctx.rotate(l.rot);
+    ctx.globalAlpha = l.a * Math.min(gust * 0.7 + 0.3, 1);
+    ctx.fillStyle = `rgb(${l.col})`;
+    const s = l.size;
+    ctx.beginPath();
+    if (l.type === 0) {
+      // simple oval leaf
+      ctx.ellipse(0, 0, s * 0.45, s, 0, 0, Math.PI * 2);
+    } else if (l.type === 1) {
+      // pointy leaf with stem
+      ctx.moveTo(0, -s);
+      ctx.bezierCurveTo( s * 0.7, -s * 0.3,  s * 0.7,  s * 0.3, 0,  s);
+      ctx.bezierCurveTo(-s * 0.7,  s * 0.3, -s * 0.7, -s * 0.3, 0, -s);
+      // midrib
+      ctx.moveTo(0, -s); ctx.lineTo(0, s);
+    } else {
+      // long narrow blade
+      ctx.ellipse(0, 0, s * 0.25, s * 1.1, 0, 0, Math.PI * 2);
+    }
+    ctx.fill();
+    // subtle vein line
+    ctx.globalAlpha *= 0.35;
+    ctx.strokeStyle = `rgba(255,240,200,0.6)`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(0, -s * 0.7); ctx.lineTo(0, s * 0.7);
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  // ── WIND STREAKS ─────────────────────────────────
+  const STREAKS = [];
+  const N_STREAKS = 80;
+
+  function makeStreak(seed) {
+    const len = 60 + Math.random() * 280;
+    const spd = 3 + Math.random() * 7;
+    return {
+      x:   seed ? Math.random() * W : -len,
+      y:   Math.random() * H,
+      len,
+      spd,
+      vy:  (Math.random() - 0.5) * 0.3,
+      w:   0.3 + Math.random() * 1.2,
+      a:   0.04 + Math.random() * 0.15,
+      col: STREAK_COLS[Math.floor(Math.random() * STREAK_COLS.length)],
+      wave: Math.random() * Math.PI * 2,
+      wF:  0.012 + Math.random() * 0.02,
+      wA:  1.5 + Math.random() * 4,
+    };
+  }
+  for (let i = 0; i < N_STREAKS; i++) STREAKS.push(makeStreak(true));
+
+  // ── EMBERS / SPECKS ──────────────────────────────
+  const EMBERS = [];
+  const N_EMBERS = 50;
+
+  function makeEmber(seed) {
+    return {
+      x:  seed ? Math.random() * W : -8,
+      y:  Math.random() * H,
+      r:  0.5 + Math.random() * 2.8,
+      vx: 0.6 + Math.random() * 3.5,
+      vy: (Math.random() - 0.5) * 0.8,
+      a:  0.1 + Math.random() * 0.45,
+      col: EMBER_COLS[Math.floor(Math.random() * EMBER_COLS.length)],
+      phase: Math.random() * Math.PI * 2,
+      freq:  0.015 + Math.random() * 0.03,
+      twinkle: Math.random() * Math.PI * 2,
+      twF: 0.04 + Math.random() * 0.07,
+    };
+  }
+  for (let i = 0; i < N_EMBERS; i++) EMBERS.push(makeEmber(true));
+
+  // ── MAIN LOOP ─────────────────────────────────────
+  function loop() {
+    ctx.clearRect(0, 0, W, H);
+    updateGust();
+
+    // streaks
+    for (let i = 0; i < STREAKS.length; i++) {
+      const s = STREAKS[i];
+      s.wave += s.wF;
+      s.x += s.spd * gust;
+      s.y += s.vy + Math.sin(s.wave) * 0.06;
+      if (s.x > W + s.len) { STREAKS[i] = makeStreak(false); continue; }
+      const a = s.a * Math.min(gust, 1.2);
+      const grad = ctx.createLinearGradient(s.x, s.y, s.x + s.len, s.y);
+      grad.addColorStop(0,    `rgba(${s.col},0)`);
+      grad.addColorStop(0.1,  `rgba(${s.col},${a})`);
+      grad.addColorStop(0.9,  `rgba(${s.col},${a * 0.5})`);
+      grad.addColorStop(1,    `rgba(${s.col},0)`);
+      const midY = s.y + Math.sin(s.wave) * s.wA;
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.quadraticCurveTo(s.x + s.len * 0.5, midY, s.x + s.len, s.y + s.vy * 3);
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = s.w;
+      ctx.stroke();
+    }
+
+    // embers
+    for (let i = 0; i < EMBERS.length; i++) {
+      const e = EMBERS[i];
+      e.phase   += e.freq;
+      e.twinkle += e.twF;
+      e.x += e.vx * gust;
+      e.y += e.vy + Math.sin(e.phase) * 0.7;
+      if (e.x > W + 10) { EMBERS[i] = makeEmber(false); continue; }
+      const flicker = 0.6 + Math.sin(e.twinkle) * 0.4;
+      ctx.beginPath();
+      ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${e.col},${e.a * flicker * Math.min(gust * 0.6 + 0.4, 1)})`;
+      ctx.fill();
+    }
+
+    // leaves (on top)
+    for (let i = 0; i < LEAVES.length; i++) {
+      const l = LEAVES[i];
+      l.wobble += l.wobF;
+      l.x   += l.spd * gust;
+      l.y   += l.vy + Math.sin(l.wobble) * l.wobA * 0.12;
+      l.rot += l.rotV * (0.5 + gust * 0.5);
+      if (l.x > W + l.size * 2) { LEAVES[i] = makeLeaf(false); continue; }
+      drawLeaf(l);
+    }
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ════════════════════════════════════════════════
+// START SCREEN WIND — gaming homepage leaves
+// ════════════════════════════════════════════════
+(function () {
+  const cv = document.getElementById('start-wind');
+  if (!cv) return;
+  const ctx = cv.getContext('2d');
+  let W, H;
+  function resize() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const LEAF_COLS   = ['180,130,60','160,110,45','140,170,80','100,140,60','200,150,70','120,155,70'];
+  const STREAK_COLS = ['192,113,79','210,140,80','170,100,60','230,160,90'];
+  const EMBER_COLS  = ['220,140,70','200,110,50','240,170,90','180,90,40'];
+
+  let gust = 1, gustTarget = 1, gustTimer = 0;
+  function updateGust() {
+    gustTimer++;
+    if (gustTimer > 70 + Math.random() * 100) { gustTarget = 0.3 + Math.random() * 2.2; gustTimer = 0; }
+    gust += (gustTarget - gust) * 0.025;
+  }
+
+  const LEAVES = [];
+  function makeLeaf(seed) {
+    const size = 5 + Math.random() * 14;
+    return {
+      x: seed ? Math.random() * W * 1.1 : -size * 2,
+      y: Math.random() * H,
+      size, spd: 0.8 + Math.random() * 2.8,
+      vy: (Math.random() - 0.48) * 1.1,
+      rot: Math.random() * Math.PI * 2,
+      rotV: (Math.random() - 0.5) * 0.055,
+      wobble: Math.random() * Math.PI * 2,
+      wobF: 0.02 + Math.random() * 0.03,
+      wobA: 0.6 + Math.random() * 2.2,
+      col: LEAF_COLS[Math.floor(Math.random() * LEAF_COLS.length)],
+      a: 0.35 + Math.random() * 0.55,
+      type: Math.floor(Math.random() * 3),
+    };
+  }
+  for (let i = 0; i < 38; i++) LEAVES.push(makeLeaf(true));
+
+  function drawLeaf(l) {
+    ctx.save();
+    ctx.translate(l.x, l.y);
+    ctx.rotate(l.rot);
+    ctx.globalAlpha = l.a * Math.min(gust * 0.7 + 0.3, 1);
+    ctx.fillStyle = 'rgb(' + l.col + ')';
+    const s = l.size;
+    ctx.beginPath();
+    if (l.type === 0) {
+      ctx.ellipse(0, 0, s * 0.45, s, 0, 0, Math.PI * 2);
+    } else if (l.type === 1) {
+      ctx.moveTo(0, -s);
+      ctx.bezierCurveTo(s*0.7,-s*0.3, s*0.7,s*0.3, 0,s);
+      ctx.bezierCurveTo(-s*0.7,s*0.3,-s*0.7,-s*0.3,0,-s);
+    } else {
+      ctx.ellipse(0, 0, s * 0.25, s * 1.1, 0, 0, Math.PI * 2);
+    }
+    ctx.fill();
+    ctx.globalAlpha *= 0.3;
+    ctx.strokeStyle = 'rgba(255,240,200,0.5)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.moveTo(0,-s*0.7); ctx.lineTo(0,s*0.7); ctx.stroke();
+    ctx.restore();
+  }
+
+  const STREAKS = [];
+  function makeStreak(seed) {
+    const len = 60 + Math.random() * 280, spd = 3 + Math.random() * 7;
+    return {
+      x: seed ? Math.random() * W : -len, y: Math.random() * H,
+      len, spd, vy: (Math.random()-0.5)*0.3,
+      w: 0.3+Math.random()*1.2, a: 0.04+Math.random()*0.15,
+      col: STREAK_COLS[Math.floor(Math.random()*STREAK_COLS.length)],
+      wave: Math.random()*Math.PI*2, wF:0.012+Math.random()*0.02, wA:1.5+Math.random()*4,
+    };
+  }
+  for (let i = 0; i < 80; i++) STREAKS.push(makeStreak(true));
+
+  const EMBERS = [];
+  function makeEmber(seed) {
+    return {
+      x: seed ? Math.random()*W : -8, y: Math.random()*H,
+      r: 0.5+Math.random()*2.8, vx: 0.6+Math.random()*3.5,
+      vy: (Math.random()-0.5)*0.8, a: 0.1+Math.random()*0.45,
+      col: EMBER_COLS[Math.floor(Math.random()*EMBER_COLS.length)],
+      phase:Math.random()*Math.PI*2, freq:0.015+Math.random()*0.03,
+      twinkle:Math.random()*Math.PI*2, twF:0.04+Math.random()*0.07,
+    };
+  }
+  for (let i = 0; i < 50; i++) EMBERS.push(makeEmber(true));
+
+  function loop() {
+    ctx.clearRect(0,0,W,H);
+    updateGust();
+
+    for (let i=0;i<STREAKS.length;i++) {
+      const s=STREAKS[i]; s.wave+=s.wF; s.x+=s.spd*gust; s.y+=s.vy+Math.sin(s.wave)*0.06;
+      if (s.x>W+s.len){STREAKS[i]=makeStreak(false);continue;}
+      const a=s.a*Math.min(gust,1.2);
+      const grad=ctx.createLinearGradient(s.x,s.y,s.x+s.len,s.y);
+      grad.addColorStop(0,'rgba('+s.col+',0)');
+      grad.addColorStop(0.1,'rgba('+s.col+','+a+')');
+      grad.addColorStop(0.9,'rgba('+s.col+','+(a*0.5)+')');
+      grad.addColorStop(1,'rgba('+s.col+',0)');
+      const midY=s.y+Math.sin(s.wave)*s.wA;
+      ctx.beginPath(); ctx.moveTo(s.x,s.y);
+      ctx.quadraticCurveTo(s.x+s.len*0.5,midY,s.x+s.len,s.y+s.vy*3);
+      ctx.strokeStyle=grad; ctx.lineWidth=s.w; ctx.stroke();
+    }
+
+    for (let i=0;i<EMBERS.length;i++) {
+      const e=EMBERS[i]; e.phase+=e.freq; e.twinkle+=e.twF;
+      e.x+=e.vx*gust; e.y+=e.vy+Math.sin(e.phase)*0.7;
+      if (e.x>W+10){EMBERS[i]=makeEmber(false);continue;}
+      const flicker=0.6+Math.sin(e.twinkle)*0.4;
+      ctx.beginPath(); ctx.arc(e.x,e.y,e.r,0,Math.PI*2);
+      ctx.fillStyle='rgba('+e.col+','+(e.a*flicker*Math.min(gust*0.6+0.4,1))+')';
+      ctx.fill();
+    }
+
+    for (let i=0;i<LEAVES.length;i++) {
+      const l=LEAVES[i]; l.wobble+=l.wobF;
+      l.x+=l.spd*gust; l.y+=l.vy+Math.sin(l.wobble)*l.wobA*0.12;
+      l.rot+=l.rotV*(0.5+gust*0.5);
+      if (l.x>W+l.size*2){LEAVES[i]=makeLeaf(false);continue;}
+      drawLeaf(l);
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+// ════════════════════════════════════════════════
+// CURSOR FX — amber ring + orbiting dots + trail
+// ════════════════════════════════════════════════
+(function () {
+  const canvas = document.getElementById('cursor-fx');
+  const ctx    = canvas.getContext('2d');
+
+  let W, H, mouse = { x: -999, y: -999 }, last = { x: -999, y: -999 };
+  let speed = 0, idleTimer = 0;
+  const particles = [];
+  const ripples   = [];
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  window.addEventListener('mousemove', e => {
+    last.x = mouse.x; last.y = mouse.y;
+    mouse.x = e.clientX; mouse.y = e.clientY;
+    const dx = mouse.x - last.x, dy = mouse.y - last.y;
+    speed = Math.sqrt(dx*dx + dy*dy);
+    idleTimer = 0;
+    if (speed > 8) {
+      const count = Math.floor(speed * 0.4);
+      for (let i = 0; i < count; i++) particles.push(trailParticle(mouse.x, mouse.y));
+    }
+  });
+
+  window.addEventListener('click', e => {
+    for (let i = 0; i < 28; i++) particles.push(burstParticle(e.clientX, e.clientY));
+  });
+
+  function trailParticle(x, y) {
+    const angle = Math.random() * Math.PI * 2;
+    const spd   = Math.random() * 1.5 + 0.3;
+    return { x, y, vx: Math.cos(angle)*spd*0.4, vy: Math.sin(angle)*spd*0.4,
+      life: 1, decay: 0.04 + Math.random()*0.04, size: Math.random()*2.5+0.5,
+      hue: 38 + Math.random()*18, type: 'trail' };
+  }
+
+  function burstParticle(x, y) {
+    const angle = Math.random() * Math.PI * 2;
+    const spd   = Math.random() * 6 + 2;
+    return { x, y, vx: Math.cos(angle)*spd, vy: Math.sin(angle)*spd,
+      life: 1, decay: 0.022 + Math.random()*0.02, size: Math.random()*3.5+1,
+      hue: 35 + Math.random()*25, type: 'burst' };
+  }
+
+  const ORBITS = [
+    { radius: 38, speed: 0.032, phase: 0,            size: 5,   sat: 90, lit: 65 },
+    { radius: 52, speed: -0.02, phase: Math.PI*0.66,  size: 3.5, sat: 70, lit: 75 },
+    { radius: 28, speed: 0.055, phase: Math.PI*1.33,  size: 4,   sat: 80, lit: 55 },
+  ];
+  let tick = 0;
+
+  function drawRing(x, y) {
+    const g1 = ctx.createRadialGradient(x, y, 10, x, y, 55);
+    g1.addColorStop(0,    'rgba(245,158,11,0.0)');
+    g1.addColorStop(0.55, 'rgba(245,158,11,0.08)');
+    g1.addColorStop(1,    'rgba(245,158,11,0.0)');
+    ctx.beginPath(); ctx.arc(x, y, 55, 0, Math.PI*2);
+    ctx.fillStyle = g1; ctx.fill();
+
+    ctx.beginPath(); ctx.arc(x, y, 18, 0, Math.PI*2);
+    ctx.strokeStyle = 'rgba(245,158,11,0.9)'; ctx.lineWidth = 2;
+    ctx.shadowColor = '#F59E0B'; ctx.shadowBlur = 14; ctx.stroke(); ctx.shadowBlur = 0;
+
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2);
+    ctx.fillStyle = '#FDE68A'; ctx.shadowColor = '#F59E0B';
+    ctx.shadowBlur = 10; ctx.fill(); ctx.shadowBlur = 0;
+  }
+
+  function drawOrbits(cx, cy) {
+    ORBITS.forEach(o => {
+      const angle = tick * o.speed + o.phase;
+      const px = cx + Math.cos(angle) * o.radius;
+      const py = cy + Math.sin(angle) * o.radius;
+      ctx.beginPath(); ctx.arc(cx, cy, o.radius, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgba(245,158,11,0.07)'; ctx.lineWidth = 0.8; ctx.stroke();
+      ctx.beginPath(); ctx.arc(px, py, o.size, 0, Math.PI*2);
+      ctx.fillStyle = `hsl(40, ${o.sat}%, ${o.lit}%)`;
+      ctx.shadowColor = '#F59E0B'; ctx.shadowBlur = 12; ctx.fill(); ctx.shadowBlur = 0;
+    });
+  }
+
+  function spawnRipple(x, y) { ripples.push({ x, y, r: 18, life: 1, decay: 0.012 }); }
+
+  function drawRipples() {
+    ripples.forEach(r => {
+      ctx.beginPath(); ctx.arc(r.x, r.y, r.r, 0, Math.PI*2);
+      ctx.strokeStyle = `rgba(245,158,11,${r.life * 0.35})`; ctx.lineWidth = 1; ctx.stroke();
+      r.r += 1.6; r.life -= r.decay;
+    });
+    for (let i = ripples.length-1; i >= 0; i--) { if (ripples[i].life <= 0) ripples.splice(i, 1); }
+  }
+
+  function cursorLoop() {
+    ctx.clearRect(0, 0, W, H);
+    tick++;
+    idleTimer++;
+    if (idleTimer > 90 && idleTimer % 55 === 0) spawnRipple(mouse.x, mouse.y);
+    drawRipples();
+
+    for (let i = particles.length-1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx; p.y += p.vy; p.vx *= 0.96; p.vy *= 0.96; p.life -= p.decay;
+      if (p.life <= 0) { particles.splice(i, 1); continue; }
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * p.life, 0, Math.PI*2);
+      ctx.fillStyle = `hsla(${p.hue}, 90%, 65%, ${p.life * 0.85})`;
+      ctx.shadowColor = `hsl(${p.hue}, 90%, 60%)`; ctx.shadowBlur = 6;
+      ctx.fill(); ctx.shadowBlur = 0;
+    }
+
+    if (mouse.x > 0) { drawOrbits(mouse.x, mouse.y); drawRing(mouse.x, mouse.y); }
+    requestAnimationFrame(cursorLoop);
+  }
+  cursorLoop();
+})();
+
+// ════════════════════════════════════════════════
+// TYPEWRITER — hero tag
+// ════════════════════════════════════════════════
+(function () {
+  var el = document.getElementById('tw-hero');
+  if (!el) return;
+  var phrases = [
+    'Data · Communication · Strategy',
+    'CEO · Data Analyst · Brand Strategist',
+    'Python · Tableau · Adobe Suite',
+    'Al Ain, UAE · UC Berkeley Extension',
+  ];
+  var pi = 0, ci = 0, deleting = false;
+
+  function tick() {
+    var cur = phrases[pi];
+    if (!deleting) {
+      ci++;
+      el.innerHTML = cur.slice(0, ci) + '<span class="tw-cursor"></span>';
+      if (ci === cur.length) {
+        deleting = true;
+        setTimeout(tick, 2200);
+        return;
+      }
+    } else {
+      ci--;
+      el.innerHTML = cur.slice(0, ci) + '<span class="tw-cursor"></span>';
+      if (ci === 0) {
+        deleting = false;
+        pi = (pi + 1) % phrases.length;
+      }
+    }
+    setTimeout(tick, deleting ? 28 : 58);
+  }
+
+  // Start after Begin the journey is clicked
+  var startBtn = document.getElementById('startBtn');
+  if (startBtn) {
+    startBtn.addEventListener('click', function () {
+      setTimeout(tick, 800);
+    });
+  } else {
+    tick();
+  }
+})();
+
+</script>
+</body>
+</html>

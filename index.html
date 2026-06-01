@@ -258,6 +258,27 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
   .about-inner,.exp-inner,.proj-inner,.contact-inner{padding:60px 24px}
   #chapter-label,#side-name{display:none}
   #audio-btn{right:20px;bottom:20px}
+
+  /* Disable cursor effects on mobile */
+  html,body{cursor:auto}
+  #cursor-fx{display:none}
+
+  /* Move corner labels below the nav bar */
+  .s-corner.s-tl,
+  .s-corner.s-tr{
+    position:absolute;
+    top:auto;
+    bottom:auto;
+    left:50%;
+    right:auto;
+    text-align:center;
+    transform:translateX(-50%);
+    top:80px;
+    white-space:nowrap;
+  }
+  .s-corner.s-tr{
+    top:110px;
+  }
 }
 
 /* ═══ SIDE NAV ═══ */
@@ -320,59 +341,7 @@ body.dark-ui .snav-item.active .snav-dot,
 body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); }
 body.dark-ui .snav-item.active .snav-label,
 body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
-/* ═══ BOTTOM NAV — mobile ═══ */
-@media(max-width:768px){
-  #side-nav {
-    right: unset;
-    top: 0;
-    left: 0;
-    bottom: unset;
-    transform: none;
-    width: 100%;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-around;
-    gap: 0;
-    padding: 0;
-    background: rgba(245,240,232,0.95);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-top: none;
-    border-bottom: 1px solid var(--line);
-    z-index: 9200;
-  }
-  body.dark-ui #side-nav {
-    background: rgba(16,14,12,0.95);
-    border-bottom-color: rgba(255,255,255,0.07);
-  }
-  .snav-item {
-    flex: 1;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 10px 4px 8px;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .snav-dot {
-    width: 5px;
-    height: 5px;
-    order: 1;
-  }
-  .snav-label {
-    order: 2;
-    font-size: 7.5px;
-    letter-spacing: 0.1em;
-    opacity: 1;
-    transform: none;
-    color: var(--muted);
-    transition: color 0.3s;
-  }
-  .snav-item.active .snav-label { color: var(--accent); }
-  .snav-item.active .snav-dot   { transform: scale(1.4); box-shadow: 0 0 5px var(--accent); }
-  body.dark-ui .snav-label      { color: rgba(245,240,232,0.35); }
-  body.dark-ui .snav-item.active .snav-label { color: var(--accent); }
-}
+@media(max-width:768px){ #side-nav { display: none; } }
 
 /* ── TYPEWRITER CURSOR ── */
 .tw-cursor {
@@ -1462,6 +1431,7 @@ window.addEventListener('resize', triggerVisible);
 // ════════════════════════════════════════════════
 (function () {
   const canvas = document.getElementById('cursor-fx');
+  if (!canvas || window.matchMedia('(max-width:768px)').matches) return;
   const ctx    = canvas.getContext('2d');
 
   let W, H, mouse = { x: -999, y: -999 }, last = { x: -999, y: -999 };

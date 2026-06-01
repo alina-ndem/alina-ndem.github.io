@@ -289,21 +289,22 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
 }
 .snav-label {
   font-family: var(--mono);
-  font-size: 8px;
+  font-size: 9px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(0,0,0,0.4);
   opacity: 0;
   transform: translateX(6px);
   transition: opacity 0.25s, transform 0.25s, color 0.3s;
   white-space: nowrap;
 }
 .snav-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--muted);
+  background: rgba(0,0,0,0.25);
   flex-shrink: 0;
+  border: 1.5px solid rgba(0,0,0,0.15);
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .snav-item:hover .snav-label,
@@ -313,15 +314,17 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
 }
 .snav-item.active .snav-dot {
   background: var(--accent);
-  transform: scale(1.5);
-  box-shadow: 0 0 6px var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.6);
+  box-shadow: 0 0 8px var(--accent);
 }
 .snav-item:hover .snav-dot {
   background: var(--accent);
-  transform: scale(1.25);
+  border-color: var(--accent);
+  transform: scale(1.3);
 }
-body.dark-ui .snav-label { color: rgba(245,240,232,0.4); }
-body.dark-ui .snav-dot   { background: rgba(245,240,232,0.25); }
+body.dark-ui .snav-dot { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.15); }
+body.dark-ui .snav-label { color: rgba(245,240,232,0.5); }
 body.dark-ui .snav-item.active .snav-dot,
 body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); }
 body.dark-ui .snav-item.active .snav-label,

@@ -16,10 +16,6 @@
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;cursor:none}
-@media(hover:none) and (pointer:coarse){
-  html,body,a,button,.cta,.snav-item{cursor:auto!important}
-  #cursor-fx{display:none!important}
-}
 
 /* ═══ SCROLL CONTAINER ═══ */
 #scroll-container{
@@ -261,12 +257,10 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
   .exp-row{grid-template-columns:1fr;gap:6px}
   .about-inner,.exp-inner,.proj-inner,.contact-inner{padding:60px 24px}
   #chapter-label,#side-name{display:none}
-  #audio-btn{right:16px;bottom:16px}
-  .sc0{padding-top:80px}
-  .sc0 .hero-grid{margin-top:10px}
+  #audio-btn{right:20px;bottom:20px}
 }
 
-/* ═══ SIDE NAV — desktop vertical ═══ */
+/* ═══ SIDE NAV ═══ */
 #side-nav {
   position: fixed;
   right: 40px;
@@ -326,7 +320,6 @@ body.dark-ui .snav-item.active .snav-dot,
 body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); }
 body.dark-ui .snav-item.active .snav-label,
 body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
-
 /* ═══ BOTTOM NAV — mobile ═══ */
 @media(max-width:768px){
   #side-nav {
@@ -1466,17 +1459,8 @@ window.addEventListener('resize', triggerVisible);
 
 // ════════════════════════════════════════════════
 // CURSOR FX — amber ring + orbiting dots + trail
-// (desktop / mouse only — skipped on touch devices)
 // ════════════════════════════════════════════════
 (function () {
-  const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  if (isTouchDevice) {
-    // Remove cursor:none so the normal pointer shows on mobile
-    document.documentElement.style.cursor = 'auto';
-    document.body.style.cursor = 'auto';
-    document.getElementById('cursor-fx').style.display = 'none';
-    return;
-  }
   const canvas = document.getElementById('cursor-fx');
   const ctx    = canvas.getContext('2d');
 

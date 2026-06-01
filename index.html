@@ -260,7 +260,7 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
   #audio-btn{right:20px;bottom:20px}
   #cursor-fx{display:none!important}
   html,body{cursor:auto!important}
-  .sc0 .hero-grid{padding-top:70px}
+  .sc0{padding-top:56px}
 }
 
 /* ═══ SIDE NAV ═══ */
@@ -1464,6 +1464,7 @@ window.addEventListener('resize', triggerVisible);
 // CURSOR FX — amber ring + orbiting dots + trail
 // ════════════════════════════════════════════════
 (function () {
+  if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
   const canvas = document.getElementById('cursor-fx');
   const ctx    = canvas.getContext('2d');
 

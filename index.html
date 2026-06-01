@@ -24,7 +24,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font
 /* ═══ SCROLL CONTAINER ═══ */
 #scroll-container{
   position:fixed;inset:0;overflow-y:scroll;overflow-x:hidden;
-  scroll-behavior:smooth;z-index:1;
+  scroll-behavior:smooth;
 }
 #scroll-container::-webkit-scrollbar{display:none}
 
@@ -60,7 +60,7 @@ canvas.fx{
 }
 body.dark-ui #chapter-label{color:rgba(245,240,232,0.35)}
 #audio-btn{
-  position:fixed;right:40px;bottom:40px;z-index:9300;
+  position:fixed;right:40px;bottom:40px;z-index:8000;
   display:flex;align-items:center;gap:10px;
   font-family:var(--mono);font-size:9px;letter-spacing:0.14em;
   text-transform:uppercase;color:var(--muted);
@@ -272,7 +272,7 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
   right: 40px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 9100;
+  z-index: 8000;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -289,22 +289,21 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
 }
 .snav-label {
   font-family: var(--mono);
-  font-size: 9px;
+  font-size: 8px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(0,0,0,0.4);
+  color: var(--muted);
   opacity: 0;
   transform: translateX(6px);
   transition: opacity 0.25s, transform 0.25s, color 0.3s;
   white-space: nowrap;
 }
 .snav-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(0,0,0,0.25);
+  background: var(--muted);
   flex-shrink: 0;
-  border: 1.5px solid rgba(0,0,0,0.15);
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 .snav-item:hover .snav-label,
@@ -314,17 +313,15 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
 }
 .snav-item.active .snav-dot {
   background: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.6);
-  box-shadow: 0 0 8px var(--accent);
+  transform: scale(1.5);
+  box-shadow: 0 0 6px var(--accent);
 }
 .snav-item:hover .snav-dot {
   background: var(--accent);
-  border-color: var(--accent);
-  transform: scale(1.3);
+  transform: scale(1.25);
 }
-body.dark-ui .snav-dot { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.15); }
-body.dark-ui .snav-label { color: rgba(245,240,232,0.5); }
+body.dark-ui .snav-label { color: rgba(245,240,232,0.4); }
+body.dark-ui .snav-dot   { background: rgba(245,240,232,0.25); }
 body.dark-ui .snav-item.active .snav-dot,
 body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); }
 body.dark-ui .snav-item.active .snav-label,

@@ -51,7 +51,7 @@ canvas.fx{
 #chapter-label{
   position:fixed;left:40px;bottom:40px;z-index:8000;
   font-family:var(--mono);font-size:9px;letter-spacing:0.2em;
-  text-transform:uppercase;color:var(--muted);
+  text-transform:uppercase;color:var(245,245,245,0.8);
   transition:color 0.5s,opacity 0.5s;
 }
 body.dark-ui #chapter-label{color:rgba(245,240,232,0.35)}
@@ -59,12 +59,12 @@ body.dark-ui #chapter-label{color:rgba(245,240,232,0.35)}
   position:fixed;right:40px;bottom:40px;z-index:8000;
   display:flex;align-items:center;gap:10px;
   font-family:var(--mono);font-size:9px;letter-spacing:0.14em;
-  text-transform:uppercase;color:var(--muted);
+  text-transform:uppercase;color:var(#e8e8e8);
   cursor:pointer;border:none;background:none;padding:0;
   transition:color 0.3s;
 }
 #audio-btn:hover{color:var(--accent)}
-body.dark-ui #audio-btn{color:rgba(245,240,232,0.35)}
+body.dark-ui #audio-btn{color:#e8e8e8}
 body.dark-ui #audio-btn:hover{color:var(--accent)}
 .abars{display:flex;align-items:flex-end;gap:2px;height:14px}
 .abars span{display:block;width:2px;background:currentColor;border-radius:1px;height:4px;transform-origin:bottom}
@@ -91,7 +91,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 @keyframes sdrift1{0%,100%{transform:translate(0,0)}50%{transform:translate(-30px,25px)}}
 @keyframes sdrift2{0%,100%{transform:translate(0,0)}50%{transform:translate(25px,-20px)}}
 .s-line{position:absolute;left:0;right:0;height:1px;background:rgba(245,240,232,0.04)}
-.s-corner{position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(245,240,232,0.12);text-transform:uppercase;opacity:0;animation:sfade 0.8s ease 1.8s forwards}
+.s-corner{position:absolute;font-family:var(--mono);font-size:9px;letter-spacing:0.12em;color:rgba(245,245,245,0.8);text-transform:uppercase;opacity:0;animation:sfade 0.8s ease 1.8s forwards}
 .s-tl{top:36px;left:40px}
 .s-tr{top:36px;right:40px;text-align:right}
 .s-bl{bottom:36px;left:40px}
@@ -99,7 +99,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 .s-eye{font-family:var(--mono);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:rgba(192,113,79,0.75);margin-bottom:44px;opacity:0;animation:sfade 0.9s ease 0.4s forwards}
 .s-name{font-family:var(--serif);font-size:clamp(54px,9vw,120px);font-weight:400;line-height:0.92;color:#f5f0e8;margin-bottom:20px;opacity:0;animation:sfade 1s ease 0.65s forwards}
 .s-name em{font-style:italic;color:var(--accent);display:block}
-.s-sub{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,232,0.28);margin-bottom:80px;opacity:0;animation:sfade 0.9s ease 0.9s forwards}
+.s-sub{font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,245,245,0.8);margin-bottom:80px;opacity:0;animation:sfade 0.9s ease 0.9s forwards}
 .s-btn{
   position:relative;display:flex;align-items:center;gap:20px;
   background:none;border:1px solid rgba(192,113,79,0.55);
@@ -116,7 +116,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 .s-btn-icon{width:30px;height:30px;border:1px solid rgba(245,240,232,0.25);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px}
 .s-pulse{position:absolute;inset:-1px;border:1px solid var(--accent);animation:pulse 2.5s ease-out 2s infinite;opacity:0}
 @keyframes pulse{0%{transform:scale(1);opacity:0.6}100%{transform:scale(1.09);opacity:0}}
-.s-vol{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,240,232,0.14);opacity:0;animation:sfade 0.8s ease 1.7s forwards;white-space:nowrap}
+.s-vol{position:absolute;bottom:44px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,245,245,0.75);opacity:0;animation:sfade 0.8s ease 1.7s forwards;white-space:nowrap}
 @keyframes sfade{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 
 
@@ -232,7 +232,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
   transform:translateY(-50%) rotate(-90deg) translateX(50%);
   transform-origin:center center;
   font-family:var(--mono);font-size:9px;letter-spacing:0.22em;
-  text-transform:uppercase;color:rgba(180,170,155,0.35);
+  text-transform:uppercase;color:rgba(245,245,245,0.8);
   z-index:8000;white-space:nowrap;
   transition:opacity 0.5s;margin-left:-60px;
 }
@@ -302,7 +302,7 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
   font-size: 8px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: rgba(245,245,245,0.8);
   opacity: 0;
   transform: translateX(6px);
   transition: opacity 0.25s, transform 0.25s, color 0.3s;
@@ -312,7 +312,7 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--muted);
+  background: rgba(245,245,245,0.8);
   flex-shrink: 0;
   transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
 }
@@ -825,9 +825,18 @@ function updateAudioBtn(on) {
 document.getElementById('audio-btn').addEventListener('click', toggleMusic);
 
 // Start Clair Obscur on first interaction
-document.addEventListener('pointerdown', () => {
+function startAudioOnFirstInteraction() {
   Music.playIntro();
-}, { once: true });
+}
+
+document.addEventListener('click', startAudioOnFirstInteraction, {
+  once: true
+});
+
+document.addEventListener('touchstart', startAudioOnFirstInteraction, {
+  once: true,
+  passive: true
+});
 
 
 // ════════════════════════════════════════════════

@@ -259,7 +259,20 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
 /* ═══ MOBILE ═══ */
 @media(max-width:768px){
   .hero-grid{grid-template-columns:1fr;gap:36px;padding:0 24px}
-  .hero-stats{display:none}
+  .hero-stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:24px;
+  }
+
+  .stat-card{
+    padding:18px;
+  }
+
+  .stat-n{
+    font-size:28px;
+  }
   .about-cols,.proj-grid{grid-template-columns:1fr}
   .exp-row{grid-template-columns:1fr;gap:6px}
   .about-inner,.exp-inner,.proj-inner,.contact-inner{padding:60px 24px}

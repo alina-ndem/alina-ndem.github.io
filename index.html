@@ -181,7 +181,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 .tag{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line);color:var(--muted)}
 
 /* ═══ SCENE 3: PROJECTS (DARK) ═══ */
-.sc3{min-height:130vh;background:#100e0c}
+.sc3{min-height:180vh;background:#100e0c}
 .proj-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:0 60px}
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(245,240,232,0.07);margin-top:44px}
 .proj-card{background:#130f0d;padding:30px 34px;transition:background 0.35s;cursor:default}
@@ -651,35 +651,88 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
     <p class="scene-tag reveal from-bottom" style="color:rgba(192,113,79,0.75)">Projects</p>
     <h2 class="scene-title light reveal tilt-in" style="transition-delay:0.1s">Things I've <em>built.</em></h2>
     <div class="proj-grid">
-      <div class="proj-card reveal scale-in" style="transition-delay:0.2s">
+      <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.2s">
         <div class="proj-num">01</div>
-        <div class="proj-name">Pet Supply Sales Analysis</div>
-        <p class="proj-desc">Full pipeline analysis — merged competitor datasets, surfaced seasonality and pricing patterns, visualized in Tableau. Deliverable: executive dashboard + video.</p>
-        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Pandas</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span></div>
+        <div class="proj-name">Pawsitive Vibes Veterinary Clinic — Website &amp; Digital Marketing</div>
+        <p class="proj-desc">Built the clinic's full website from scratch on Wix. Managed 8 social media accounts and launched 40+ Google Ads and Meta Ads campaigns that reached 700K+ users, onboarding 1,000 customers in two months. Integrated Google Analytics to track traffic, conversions, and ROI — producing regular performance reports to continuously optimize campaigns.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Google Ads</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Meta Ads</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Google Analytics</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Wix</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">SEO</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Campaign Optimization</span>
+        </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.28s">
         <div class="proj-num">02</div>
-        <div class="proj-name">Creative vs. IT Jobs — D3 Visualization</div>
-        <p class="proj-desc">Interactive D3.js line chart exploring U.S. employment trends in Creative and IT fields with animated drawing and editorial visual design.</p>
-        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">D3.js</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">JavaScript</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">BLS Data</span></div>
+        <div class="proj-name">Pet Market Trend Analysis — Python for Data Analysis</div>
+        <p class="proj-desc">Final project at UC Berkeley Extension. Analyzed U.S. online pet supply sales data — cleaning, merging, and visualizing real transaction datasets alongside competitor data. Uncovered patterns in pricing, seasonality, and customer spending habits using Python.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Pandas</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">NumPy</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Matplotlib</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Jupyter</span>
+        </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.36s">
         <div class="proj-num">03</div>
-        <div class="proj-name">Stakeholder Visualization Dashboard</div>
-        <p class="proj-desc">Executive-facing Tableau dashboard translating messy business data into a clear story for non-technical decision-makers — paired with PowerPoint and narrated walkthrough.</p>
-        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Excel</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Storytelling</span></div>
+        <div class="proj-name">Starbucks Malaysia — Customer Segmentation Analysis</div>
+        <p class="proj-desc">End-to-end customer analytics study using R. Applied Ward's Hierarchical Clustering and K-Means Clustering to segment customers by satisfaction, loyalty, and purchasing behavior. Developed an ACSI-based satisfaction model and translated findings into data-driven retention and loyalty program recommendations.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">R</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">K-Means Clustering</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Hierarchical Clustering</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">ACSI Modeling</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Statistics</span>
+        </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.44s">
         <div class="proj-num">04</div>
-        <div class="proj-name">AI for Everyone — Literacy Initiative</div>
-        <p class="proj-desc">Interdisciplinary AI literacy course advocating for human-centered AI education that meets non-technical audiences where they are.</p>
-        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">AI Literacy</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Communication</span></div>
+        <div class="proj-name">Internet Data File Analyzer — Python Program</div>
+        <p class="proj-desc">Built a Python program for multi-tier dataset analysis: cleaning, min/max/averages/modes/ranks, group-by column operations, and trend exploration. Automated data downloads, used Matplotlib for visualization, and SQLite for data storage. Reduced processing time by 30% and surfaced 25% more insights.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Matplotlib</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">SQLite</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Automation</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Data Analysis</span>
+        </div>
       </div>
-      <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.52s">
+      <div class="proj-card reveal scale-in" style="transition-delay:0.52s">
         <div class="proj-num">05</div>
-        <div class="proj-name">This Portfolio</div>
-        <p class="proj-desc">A hand-coded scroll-journey portfolio — no templates, no frameworks. Designed to reflect my approach: clean structure, clear communication, data-informed decisions. Hosted on GitHub Pages.</p>
-        <div class="tags"><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">HTML</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">CSS</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">JavaScript</span><span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">GitHub Pages</span></div>
+        <div class="proj-name">JPMorgan Chase CADP — Visualization &amp; Business Analysis</div>
+        <p class="proj-desc">Built an executive Tableau and Excel visualization dashboard, documented business processes with improvement recommendations, and produced a PowerPoint presentation with stakeholder-facing video walkthrough for JPMorgan's Corporate Analyst Development Program.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Excel</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">PowerPoint</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Business Analysis</span>
+        </div>
+      </div>
+      <div class="proj-card reveal scale-in" style="transition-delay:0.6s">
+        <div class="proj-num">06</div>
+        <div class="proj-name">Deloitte Australia — Data Unification &amp; Cybersecurity</div>
+        <p class="proj-desc">Created a Python algorithm to merge two incompatible data models. Built a Tableau dashboard, classified data in Excel for business conclusions, and identified the origin of a cybersecurity breach by analyzing web activity logs.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Cybersecurity</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Excel</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Data Modeling</span>
+        </div>
+      </div>
+      <div class="proj-card reveal scale-in" style="transition-delay:0.68s">
+        <div class="proj-num">07</div>
+        <div class="proj-name">KPMG Forage — Data Analytics Consulting</div>
+        <p class="proj-desc">Assessed data quality and proposed mitigation strategies. Built a 3-phase model (data exploration → feature engineering → interpretation) to identify the highest-value customers from 1,000 prospects. Delivered a client-facing dashboard with marketing recommendations for Sprocket Central Pty Ltd.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Data Quality</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Feature Engineering</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Data Mining</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span>
+        </div>
       </div>
     </div>
   </div>

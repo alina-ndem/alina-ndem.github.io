@@ -139,7 +139,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
   object-fit:cover;
   margin-bottom:24px;
 }
-.hero-body{font-size:14px;color:var(--muted);line-height:1.95;max-width:420px;margin-bottom:44px}
+.hero-body{font-size:14px;color:var(--muted);line-height:1.95;max-width:420px;margin-bottom:64px}
 .hero-cta{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);cursor:pointer;transition:color 0.2s}
 .hero-cta:hover{color:var(--accent)}
 .cta-arr{font-size:18px;animation:bounce 2.2s ease-in-out infinite}
@@ -243,7 +243,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 
 /* ═══ SCENE 3: PROJECTS (DARK) ═══ */
 .sc3{min-height:180vh;background:#100e0c}
-.proj-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:0 60px}
+.proj-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:100px 60px 0}
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(245,240,232,0.07);margin-top:44px}
 .proj-card{background:#130f0d;padding:30px 34px;transition:background 0.35s;cursor:default}
 .proj-card:hover{background:#1e1916}
@@ -429,63 +429,110 @@ body.dark-ui #side-name{color:rgba(245,240,232,0.12)}
 /* ═══ SIDE NAV ═══ */
 #side-nav {
   position: fixed;
-  right: 40px;
+  right: 36px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 8000;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 20px;
-}
-.snav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
+  gap: 0;
   background: none;
   border: none;
   padding: 0;
 }
+
+/* vertical thread running through all items */
+#side-nav::before {
+  content: '';
+  position: absolute;
+  right: 3px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(192,113,79,0.2) 15%,
+    rgba(192,113,79,0.2) 85%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+body.dark-ui #side-nav::before {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(245,240,232,0.15) 15%,
+    rgba(245,240,232,0.15) 85%,
+    transparent 100%
+  );
+}
+
+.snav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 11px 0;
+  position: relative;
+}
+
 .snav-label {
   font-family: var(--mono);
   font-size: 8px;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(245,245,245,0.8);
+  color: rgba(80,60,45,0.65);
   opacity: 0;
-  transform: translateX(6px);
-  transition: opacity 0.25s, transform 0.25s, color 0.3s;
+  transform: translateX(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.3s ease;
   white-space: nowrap;
 }
+
+/* tick mark — replaces dot */
 .snav-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(245,245,245,0.8);
+  width: 14px;
+  height: 1px;
+  border-radius: 0;
+  background: rgba(150,120,95,0.4);
   flex-shrink: 0;
-  transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+  transition: background 0.3s, width 0.3s, box-shadow 0.3s;
+  position: relative;
+  z-index: 1;
 }
+
 .snav-item:hover .snav-label,
 .snav-item.active .snav-label {
   opacity: 1;
   transform: translateX(0);
 }
+
 .snav-item.active .snav-dot {
+  width: 22px;
   background: var(--accent);
-  transform: scale(1.5);
-  box-shadow: 0 0 6px var(--accent);
+  box-shadow: 0 0 8px rgba(192,113,79,0.6), 0 0 20px rgba(192,113,79,0.2);
 }
 .snav-item:hover .snav-dot {
+  width: 18px;
   background: var(--accent);
-  transform: scale(1.25);
 }
+.snav-item.active .snav-label {
+  color: var(--accent);
+  font-weight: 600;
+}
+.snav-item:hover .snav-label {
+  color: var(--accent);
+}
+
 body.dark-ui .snav-label { color: rgba(245,240,232,0.4); }
-body.dark-ui .snav-dot   { background: rgba(245,240,232,0.25); }
+body.dark-ui .snav-dot   { background: rgba(245,240,232,0.2); }
 body.dark-ui .snav-item.active .snav-dot,
-body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); }
+body.dark-ui .snav-item:hover .snav-dot { background: var(--accent); box-shadow: 0 0 8px rgba(192,113,79,0.5); }
 body.dark-ui .snav-item.active .snav-label,
-body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
+body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.9); }
 /* ═══ BOTTOM NAV — mobile ═══ */
 @media(max-width:768px){
   #side-nav {
@@ -523,6 +570,7 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
   .snav-dot {
     width: 5px;
     height: 5px;
+    border-radius: 50%;
     order: 1;
   }
   .snav-label {
@@ -1004,9 +1052,9 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
         <div class="award-org">Abu Dhabi University</div>
       </div>
 
-      <div class="award-row">
+      <div class="award-row highlight">
         <div class="award-date">Nov 2017</div>
-        <div class="award-name"><em>3rd Place</em> — Poetry Competition, Al Ain Campus</div>
+        <div class="award-name"><em>3rd Place</em> — Poetry Competition, Al Ain Campus <span class="award-badge">★ 3rd Place</span></div>
         <div class="award-org">Abu Dhabi University</div>
       </div>
 

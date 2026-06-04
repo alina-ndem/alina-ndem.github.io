@@ -171,8 +171,69 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 /* ═══ SCENE 2: EXPERIENCE ═══ */
 .sc2{min-height:200vh;background:linear-gradient(160deg,#f5f0e8 0%,#ece5d8 100%)}
 .exp-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:80px 60px}
-.exp-row{display:grid;grid-template-columns:150px 1fr;gap:36px;padding:28px 0;border-bottom:1px solid var(--line)}
-.exp-row:first-child{border-top:1px solid var(--line)}
+
+/* Legend */
+.exp-legend{
+  display:flex;align-items:center;gap:32px;
+  margin-bottom:48px;
+  flex-wrap:wrap;
+}
+.exp-legend-item{
+  display:flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:9px;letter-spacing:0.16em;text-transform:uppercase;
+}
+.exp-legend-pip{
+  width:10px;height:10px;border-radius:50%;flex-shrink:0;
+}
+.exp-legend-item.creative .exp-legend-pip{ background:var(--accent); }
+.exp-legend-item.data .exp-legend-pip{ background:var(--accent2); }
+.exp-legend-item.creative{ color:var(--accent); }
+.exp-legend-item.data{ color:var(--accent2); }
+
+/* Legend headers */
+.exp-legend-block{display:flex;flex-direction:column;gap:2px;}
+.exp-legend-eyebrow{font-family:var(--mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;}
+.exp-legend-title{font-family:var(--serif);font-size:15px;font-weight:400;line-height:1.15;}
+.exp-legend-title em{font-style:italic;}
+.exp-legend-item.creative .exp-legend-eyebrow,.exp-legend-item.creative .exp-legend-title em{color:var(--accent);}
+.exp-legend-item.data .exp-legend-eyebrow,.exp-legend-item.data .exp-legend-title em{color:var(--accent2);}
+.exp-legend-sep{width:1px;height:40px;background:var(--line);}
+
+/* Rows */
+.exp-row{
+  display:grid;
+  grid-template-columns:8px 150px 1fr;
+  gap:0 28px;
+  padding:26px 0;
+  border-bottom:1px solid var(--line);
+  align-items:start;
+}
+.exp-row:first-child{border-top:1px solid var(--line);}
+.exp-stripe{
+  width:3px;height:100%;min-height:40px;
+  border-radius:2px;align-self:stretch;
+  margin-top:4px;
+}
+.exp-row.creative .exp-stripe{ background:var(--accent); }
+.exp-row.data .exp-stripe{ background:var(--accent2); }
+.exp-date{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--muted);padding-top:4px;line-height:1.7}
+.exp-role{font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:3px}
+.exp-org{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+.exp-row.creative .exp-org{color:var(--accent);}
+.exp-row.data .exp-org{color:var(--accent2);}
+.exp-desc{font-size:12px;color:var(--muted);line-height:1.9;margin-bottom:10px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line);color:var(--muted)}
+.exp-row.data .tag{border-color:rgba(107,127,138,0.3);color:var(--accent2);}
+.exp-row.creative .tag{border-color:rgba(192,113,79,0.25);color:var(--accent);}
+
+@media(max-width:768px){
+  .exp-inner{padding:60px 24px}
+  .exp-row{grid-template-columns:4px 1fr;gap:0 16px}
+  .exp-date{display:none}
+  .exp-legend{gap:20px}
+  .exp-legend-sep{display:none}
+}
 .exp-date{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;color:var(--muted);padding-top:4px;line-height:1.7}
 .exp-role{font-family:var(--serif);font-size:19px;color:var(--ink);margin-bottom:3px}
 .exp-org{font-family:var(--mono);font-size:9px;letter-spacing:0.08em;color:var(--accent);text-transform:uppercase;margin-bottom:10px}
@@ -193,6 +254,74 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 
 /* ═══ SCENE 4: CONTACT ═══ */
 .sc4{min-height:100vh;background:radial-gradient(ellipse 110% 90% at 25% 85%,#ddd5c3 0%,#f5f0e8 60%)}
+
+/* ═══ SCENE 5: HONOURS & AWARDS ═══ */
+.sc5{min-height:100vh;background:var(--bg)}
+.awards-inner{position:relative;z-index:2;max-width:860px;width:90%;margin:0 auto;padding:120px 0}
+.awards-list{margin-top:48px;display:flex;flex-direction:column;gap:0}
+.award-row{
+  display:grid;
+  grid-template-columns:80px 1fr auto;
+  align-items:baseline;
+  gap:24px;
+  padding:22px 0;
+  border-bottom:1px solid var(--line);
+  opacity:0;
+  transform:translateY(24px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.award-row.visible{opacity:1;transform:none}
+.award-date{
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.1em;
+  color:var(--muted);
+  padding-top:3px;
+  line-height:1.6;
+  white-space:nowrap;
+}
+
+/* Highlighted award rows */
+.award-row.highlight{
+  background:linear-gradient(90deg,rgba(192,113,79,0.07) 0%,transparent 100%);
+  border-bottom-color:rgba(192,113,79,0.2);
+  padding-left:16px;
+  margin-left:-16px;
+  padding-right:16px;
+}
+.award-row.highlight .award-name{color:var(--ink);}
+.award-row.highlight .award-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:8px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--accent);border:1px solid rgba(192,113,79,0.4);
+  padding:2px 8px;border-radius:2px;margin-left:10px;vertical-align:middle;
+  white-space:nowrap;
+}
+
+.award-name{
+  font-family:var(--serif);
+  font-size:clamp(15px,1.5vw,19px);
+  color:var(--ink);
+  line-height:1.35;
+}
+.award-name em{font-style:italic;color:var(--accent)}
+.award-org{
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  white-space:nowrap;
+  text-align:right;
+}
+.award-row:first-child{border-top:1px solid var(--line);}
+@media(max-width:768px){
+  .award-row{grid-template-columns:1fr;gap:4px}
+  .award-date{display:none}
+  .award-org{text-align:left}
+  .awards-inner{padding:60px 24px}
+  .award-row.highlight{padding-left:12px;margin-left:-12px;padding-right:12px;}
+}
 .contact-inner{position:relative;z-index:2;max-width:900px;width:100%;padding:0 60px;text-align:center}
 .contact-pre{font-family:var(--mono);font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:28px}
 .contact-h{font-family:var(--serif);font-size:clamp(38px,5.5vw,76px);font-weight:400;line-height:1.03;color:var(--ink);margin-bottom:18px}
@@ -452,6 +581,7 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
   <button class="snav-item" data-target="sc1"><span class="snav-label">About</span><span class="snav-dot"></span></button>
   <button class="snav-item" data-target="sc2"><span class="snav-label">Experience</span><span class="snav-dot"></span></button>
   <button class="snav-item" data-target="sc3"><span class="snav-label">Projects</span><span class="snav-dot"></span></button>
+  <button class="snav-item" data-target="sc5"><span class="snav-label">Honours</span><span class="snav-dot"></span></button>
   <button class="snav-item" data-target="sc4"><span class="snav-label">Contact</span><span class="snav-dot"></span></button>
 </nav>
 
@@ -559,61 +689,94 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
     <p class="scene-tag reveal from-bottom">Experience</p>
     <h2 class="scene-title reveal tilt-in" style="color:var(--ink);transition-delay:0.1s">What I've <em>done.</em></h2>
 
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.2s">
+    <!-- LEGEND -->
+    <div class="exp-legend reveal from-bottom" style="transition-delay:0.18s">
+      <div class="exp-legend-item creative">
+        <div class="exp-legend-pip"></div>
+        <div class="exp-legend-block">
+          <span class="exp-legend-eyebrow">Creative &amp; Communication</span>
+          <span class="exp-legend-title">Brand, Strategy <em>&amp; Story.</em></span>
+        </div>
+      </div>
+      <div class="exp-legend-sep"></div>
+      <div class="exp-legend-item data">
+        <div class="exp-legend-pip"></div>
+        <div class="exp-legend-block">
+          <span class="exp-legend-eyebrow">Data &amp; Technical</span>
+          <span class="exp-legend-title">Analysis, Code <em>&amp; Insight.</em></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHRONOLOGICAL LIST -->
+    <div class="exp-row creative reveal from-bottom" style="transition-delay:0.22s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Dec 2024 – Present</div>
       <div>
         <div class="exp-role">Chief Executive Officer</div>
         <div class="exp-org">Pawsitive Vibes Veterinary Clinic · Al Ain, UAE</div>
         <p class="exp-desc">Led the clinic's full launch — startup operations, licensing, regulatory compliance, and government liaison. Built the brand from scratch: logo, signage, website, and social media. Led Google &amp; Meta Ads campaigns reaching 700K+ users and onboarding 1,000 customers in two months.</p>
-        <div class="tags"><span class="tag">Google Ads</span><span class="tag">Meta Ads</span><span class="tag">QuickBooks</span><span class="tag">Branding</span><span class="tag">Operations</span><span class="tag">SEO</span><span class="tag">Web Development</span><span class="tag">Data Analytics</span><span class="tag">Project Management</span></div>
+        <div class="tags"><span class="tag">Google Ads</span><span class="tag">Meta Ads</span><span class="tag">Branding</span><span class="tag">Web Dev</span><span class="tag">SEO</span><span class="tag">Operations</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.3s">
+
+    <div class="exp-row data reveal from-bottom" style="transition-delay:0.28s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Mar 2024 – Present</div>
       <div>
         <div class="exp-role">Data Analytics Apprentice</div>
         <div class="exp-org">UC Berkeley Extension · Berkeley, California</div>
-        <p class="exp-desc">Completed practical analytics projects using Python, R, SQL, Pandas, NumPy, Matplotlib, SQLite, Tableau, and Power BI. Built data analysis tools, automated data workflows, performed customer segmentation using K-Means and Ward's Hierarchical Clustering, conducted market research and competitive benchmarking, analyzed customer and sales data, created visualizations, and delivered business-focused insights through reports and presentations.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Tableau</span><span class="tag">Power BI</span><span class="tag">K-Means Clustering</span></div>
+        <p class="exp-desc">Completed practical analytics projects using Python, R, SQL, Pandas, NumPy, Matplotlib, SQLite, Tableau, and Power BI. Built data analysis tools, automated workflows, performed customer segmentation using K-Means and Ward's Hierarchical Clustering, and delivered business-focused insights through reports and presentations.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">R</span><span class="tag">SQL</span><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Tableau</span><span class="tag">Power BI</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.35s">
+
+    <div class="exp-row data reveal from-bottom" style="transition-delay:0.34s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Apr 2024 – May 2024</div>
       <div>
         <div class="exp-role">CADP Analyst Trainee</div>
         <div class="exp-org">JPMorgan Chase &amp; Co. · New York, USA</div>
         <p class="exp-desc">Built a Tableau and Excel visualization dashboard, documented a business process and identified improvement opportunities, and developed a PowerPoint presentation to communicate key findings to stakeholders.</p>
-        <div class="tags"><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag">PowerPoint</span><span class="tag">Stakeholder Comms</span></div>
+        <div class="tags"><span class="tag">Tableau</span><span class="tag">Excel</span><span class="tag">Data Viz</span><span class="tag">Reporting</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.4s">
+
+    <div class="exp-row data reveal from-bottom" style="transition-delay:0.4s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Apr 2024</div>
       <div>
         <div class="exp-role">Technology Trainee</div>
         <div class="exp-org">Deloitte Australia · Forage Job Simulation</div>
-        <p class="exp-desc">Unified two data models using Python and classified data in Excel to draw business conclusions. Created a Tableau dashboard and assisted in cybersecurity breach analysis.</p>
+        <p class="exp-desc">Unified two data models using Python and classified data in Excel to draw business conclusions. Created a Tableau dashboard and identified the origin of a cybersecurity breach by analyzing web activity logs.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">Tableau</span><span class="tag">Cybersecurity</span><span class="tag">Excel</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.45s">
+
+    <div class="exp-row data reveal from-bottom" style="transition-delay:0.46s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Mar 2023 – Apr 2023</div>
       <div>
         <div class="exp-role">Data Analytics Trainee</div>
         <div class="exp-org">KPMG Forage · Data Analytics Consulting</div>
-        <p class="exp-desc">Identified data quality issues and proposed mitigation strategies. Conducted analysis covering distributions, feature engineering, modeling, and reporting, and built a dashboard with recommendations for Sprocket Central Pty Ltd.</p>
+        <p class="exp-desc">Assessed data quality and proposed mitigation strategies. Built a 3-phase model covering data exploration, feature engineering, and interpretation to identify high-value customers. Delivered a client-facing dashboard with marketing recommendations.</p>
         <div class="tags"><span class="tag">Data Quality</span><span class="tag">Feature Engineering</span><span class="tag">Tableau</span><span class="tag">Consulting</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.5s">
+
+    <div class="exp-row data reveal from-bottom" style="transition-delay:0.52s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Sep 2022 – Dec 2022</div>
       <div>
         <div class="exp-role">Support General Admin Assistant</div>
         <div class="exp-org">Akar Landscaping Services · Al Ain, UAE</div>
-        <p class="exp-desc">Developed and executed a PPE training program for construction staff. Produced a commercial video and built Excel sheets for business impact analysis.</p>
-        <div class="tags"><span class="tag">Excel</span><span class="tag">Training</span><span class="tag">Video Production</span></div>
+        <p class="exp-desc">Built Excel sheets for business impact analysis, developed a PPE training program for construction staff, and produced a commercial training video.</p>
+        <div class="tags"><span class="tag">Excel</span><span class="tag">Data Analysis</span><span class="tag">Reporting</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.55s">
+
+    <div class="exp-row creative reveal from-bottom" style="transition-delay:0.58s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Aug 2021 – Oct 2021</div>
       <div>
         <div class="exp-role">Social Media Marketer</div>
@@ -622,7 +785,9 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
         <div class="tags"><span class="tag">SEO</span><span class="tag">Graphic Design</span><span class="tag">Social Media</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.6s">
+
+    <div class="exp-row creative reveal from-bottom" style="transition-delay:0.64s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">Jun 2021 – Aug 2021</div>
       <div>
         <div class="exp-role">Social Media TikTok Intern</div>
@@ -631,7 +796,9 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
         <div class="tags"><span class="tag">Social Strategy</span><span class="tag">Content Creation</span><span class="tag">TikTok</span></div>
       </div>
     </div>
-    <div class="exp-row reveal from-bottom" style="transition-delay:0.65s">
+
+    <div class="exp-row creative reveal from-bottom" style="transition-delay:0.7s">
+      <div class="exp-stripe"></div>
       <div class="exp-date">May 2021 – Aug 2021</div>
       <div>
         <div class="exp-role">Digital Marketing Trainee</div>
@@ -640,6 +807,7 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
         <div class="tags"><span class="tag">Paid Ads</span><span class="tag">SEO</span><span class="tag">Ahrefs</span><span class="tag">WordPress</span></div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -733,6 +901,115 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.75); }
           <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Tableau</span>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SCENE 5: HONOURS & AWARDS ═══ -->
+<section class="scene sc5" id="sc5">
+  <div class="big-word" style="font-size:22vw;top:-2%;right:-4%;opacity:1" data-speed="0.14">Glory</div>
+  <canvas class="fx" id="cx5"></canvas>
+  <div class="awards-inner">
+    <p class="scene-tag reveal from-bottom">Recognition</p>
+    <h2 class="scene-title reveal tilt-in" style="transition-delay:0.1s">Honours &amp; <em>Awards.</em></h2>
+    <div class="awards-list">
+
+      <div class="award-row highlight">
+        <div class="award-date">Apr 2022</div>
+        <div class="award-name">School of Communication Distinguished Student Award <span class="award-badge">★ Award</span></div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Apr 2022</div>
+        <div class="award-name">Outstanding ECU Student</div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Dec 2022</div>
+        <div class="award-name">Chancellor's List <em>(2×)</em></div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Mar 2022</div>
+        <div class="award-name">Dr. Cindy Elmore Excellence in Communication Scholarship</div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Feb 2022</div>
+        <div class="award-name">Dowdy Bookstore Scholarship</div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">May 2021</div>
+        <div class="award-name">Chancellor's List</div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Mar 2021</div>
+        <div class="award-name">Lester C. &amp; Alta M. Rees Memorial Scholarship</div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Sep 2020</div>
+        <div class="award-name">Exemplary Academic Performance <em>— Spring 2020</em></div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">May 2020</div>
+        <div class="award-name">Dean's List</div>
+        <div class="award-org">East Carolina University</div>
+      </div>
+
+      <div class="award-row highlight">
+        <div class="award-date">Oct 2019</div>
+        <div class="award-name"><em>1st Place</em> — Kunooz Year of Zayed Competition, Work of Art Category <span class="award-badge">★ 1st Place</span></div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">May 2019</div>
+        <div class="award-name">Dean's List <em>(3×)</em></div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">May 2019</div>
+        <div class="award-name">Top Performer, College of Arts &amp; Science <em>— Fall 2018–2019</em></div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Oct 2018</div>
+        <div class="award-name">Top Performer, University College <em>— Spring 2017–2018</em></div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
+      <div class="award-row highlight">
+        <div class="award-date">May 2018</div>
+        <div class="award-name">Professionalism &amp; Enthusiasm Award <span class="award-badge">★ Award</span></div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">May 2018</div>
+        <div class="award-name">Top Performer, University College <em>— Fall 2017–2018</em></div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
+      <div class="award-row">
+        <div class="award-date">Nov 2017</div>
+        <div class="award-name"><em>3rd Place</em> — Poetry Competition, Al Ain Campus</div>
+        <div class="award-org">Abu Dhabi University</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -940,8 +1217,8 @@ document.getElementById('startBtn').addEventListener('click', async function() {
 // ════════════════════════════════════════════════
 const sc = document.getElementById('scroll-container');
 const scenes = document.querySelectorAll('.scene');
-const SCENE_NAMES = ['01 · Intro','02 · About','03 · Experience','04 · Projects','05 · Contact'];
-const SIDE_NAMES = ['Alina Nadeem','The Person','The Work','The Projects','The Connection'];
+const SCENE_NAMES = ['01 · Intro','02 · About','03 · Experience','04 · Projects','05 · Honours','06 · Contact'];
+const SIDE_NAMES = ['Alina Nadeem','The Person','The Work','The Projects','The Recognition','The Connection'];
 const DARK_SCENES = new Set([1,3]);
 
 let lastScrollY = 0;
@@ -1015,6 +1292,12 @@ function triggerVisible() {
       el.classList.add('visible');
     }
   });
+  document.querySelectorAll('.award-row:not(.visible)').forEach((el, i) => {
+    const r = el.getBoundingClientRect();
+    if (r.top < window.innerHeight * 0.92 && r.bottom > 0) {
+      setTimeout(() => el.classList.add('visible'), i * 55);
+    }
+  });
 }
 
 // ════════════════════════════════════════════════
@@ -1057,6 +1340,8 @@ function triggerVisible() {
     { count:80, color:'220,130,80', minR:0.4, maxR:2.2, speed:0.28, drift:0.28, alpha:0.55 },
     // sc4 contact: airy blue-grey motes
     { count:35, color:'107,127,138', minR:1, maxR:2.5, speed:0.14, drift:0.12, alpha:0.45 },
+    // sc5 honours: warm golden motes
+    { count:40, color:'192,113,79', minR:0.8, maxR:2.4, speed:0.16, drift:0.14, alpha:0.4 },
   ];
 
   scenes.forEach((scene, idx) => {
@@ -1564,6 +1849,7 @@ window.addEventListener('resize', triggerVisible);
 (function () {
   if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) return;
   const canvas = document.getElementById('cursor-fx');
+  if (!canvas) return;
   const ctx    = canvas.getContext('2d');
 
   let W, H, mouse = { x: -999, y: -999 }, last = { x: -999, y: -999 };

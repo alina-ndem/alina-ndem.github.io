@@ -705,18 +705,66 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.9); }
 /* ═══ TABLET (769px – 1024px) ═══ */
 @media(min-width:769px) and (max-width:1024px){
 
-  /* Side nav — push inward so it doesn't overlap content */
-  #side-nav{
-    right:16px;
+  /* Nav — same top bar style as mobile */
+  #side-nav {
+    right: unset;
+    top: 0;
+    left: 0;
+    bottom: unset;
+    transform: none;
+    width: 100%;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: space-around;
+    gap: 0;
+    padding: 0;
+    background: rgba(245,240,232,0.95);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: none;
+    border-bottom: 1px solid var(--line);
+    z-index: 9200;
   }
-  .snav-label{
-    display:none;
+  body.dark-ui #side-nav {
+    background: rgba(16,14,12,0.95);
+    border-bottom-color: rgba(255,255,255,0.07);
   }
+  #side-nav::before {
+    display: none;
+  }
+  .snav-item {
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 4px 8px;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .snav-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    order: 1;
+  }
+  .snav-label {
+    order: 2;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    opacity: 1;
+    transform: none;
+    color: var(--muted);
+    transition: color 0.3s;
+  }
+  .snav-item.active .snav-label { color: var(--accent); }
+  .snav-item.active .snav-dot   { transform: scale(1.4); box-shadow: 0 0 5px var(--accent); }
+  body.dark-ui .snav-label      { color: rgba(245,240,232,0.35); }
+  body.dark-ui .snav-item.active .snav-label { color: var(--accent); }
 
-  /* All inner content — safe horizontal padding + cap width */
+  /* All inner content — safe padding, no need for right offset now nav is on top */
   .hero-grid{
     max-width:100%;
-    padding:0 80px 0 60px; /* extra right room for side nav */
+    padding:0 48px;
     gap:40px;
   }
   .about-inner,
@@ -724,16 +772,16 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.9); }
   .proj-inner,
   .contact-inner{
     padding-left:48px;
-    padding-right:72px; /* keeps content away from side nav */
+    padding-right:48px;
   }
   .awards-inner{
     width:100%;
-    padding:80px 72px 80px 48px;
+    padding:80px 48px;
   }
 
-  /* Prevent hero from spilling left */
+  /* Push first scene down so nav bar doesn't cover the hero */
   .sc0{
-    padding-top:60px;
+    padding-top:80px;
   }
 
   /* Two-col grids — stack on tablet */

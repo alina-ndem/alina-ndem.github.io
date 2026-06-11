@@ -418,8 +418,11 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
     margin:32px 0 40px;
   }
   .award-photo-frame img{
-    aspect-ratio:4/3;
-    object-position:top center;
+    aspect-ratio:auto;
+    height:auto;
+    object-fit:contain;
+    object-position:center;
+    background:var(--warm);
   }
   .award-photo-caption{
     opacity:1;

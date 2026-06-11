@@ -702,6 +702,81 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.9); }
   body.dark-ui .snav-item.active .snav-label { color: var(--accent); }
 }
 
+/* ═══ TABLET (769px – 1024px) ═══ */
+@media(min-width:769px) and (max-width:1024px){
+
+  /* Side nav — push inward so it doesn't overlap content */
+  #side-nav{
+    right:16px;
+  }
+  .snav-label{
+    display:none;
+  }
+
+  /* All inner content — safe horizontal padding + cap width */
+  .hero-grid{
+    max-width:100%;
+    padding:0 80px 0 60px; /* extra right room for side nav */
+    gap:40px;
+  }
+  .about-inner,
+  .exp-inner,
+  .proj-inner,
+  .contact-inner{
+    padding-left:48px;
+    padding-right:72px; /* keeps content away from side nav */
+  }
+  .awards-inner{
+    width:100%;
+    padding:80px 72px 80px 48px;
+  }
+
+  /* Prevent hero from spilling left */
+  .sc0{
+    padding-top:60px;
+  }
+
+  /* Two-col grids — stack on tablet */
+  .hero-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .about-cols{
+    grid-template-columns:1fr;
+    gap:36px;
+  }
+  .proj-grid{
+    grid-template-columns:1fr;
+  }
+  .proj-card[style*="grid-column:span 2"]{
+    grid-column:span 1;
+  }
+
+  /* Award photo triptych — 2 cols on tablet */
+  .award-photos{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  /* Experience rows — hide date col to save space */
+  .exp-row{
+    grid-template-columns:8px 1fr;
+    gap:0 16px;
+  }
+  .exp-date{
+    display:none;
+  }
+
+  /* Stat cards */
+  .hero-stats{
+    gap:12px;
+  }
+  .stat-card{
+    padding:18px 20px;
+  }
+  .stat-n{
+    font-size:30px;
+  }
+}
+
 /* ── TYPEWRITER CURSOR ── */
 .tw-cursor {
   display: inline-block;

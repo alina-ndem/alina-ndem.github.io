@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Alina Nadeem · Portfolio</title>
 
+<!-- SEO / Social sharing -->
+<meta name="description" content="Alina Nadeem — Data Analyst, CEO & Communication Specialist based in Al Ain, UAE. UC Berkeley Extension · Python · SQL · Tableau · R.">
+<meta property="og:title" content="Alina Nadeem · Data Analyst & Communication Specialist">
+<meta property="og:description" content="Where numbers meet narrative. Portfolio of Alina Nadeem — data analytics, strategy, and creative communication.">
+<meta property="og:image" content="https://alina-ndem.github.io/alina-circle.png">
+<meta property="og:url" content="https://alina-ndem.github.io/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Alina Nadeem · Data Analyst & Communication Specialist">
+<meta name="twitter:description" content="Where numbers meet narrative. Portfolio of Alina Nadeem.">
+<meta name="twitter:image" content="https://alina-ndem.github.io/alina-circle.png">
+
+<!-- Favicon (SVG inline — no file needed) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%23c0714f'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='20' fill='%23f5f0e8'>A</text></svg>" type="image/svg+xml">
+
 <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-JF58XBYCGP"></script>
   <script>
@@ -253,7 +268,7 @@ body.dark-ui #audio-btn:hover{color:var(--accent)}
 
 /* ═══ SCENE 3: PROJECTS (DARK) ═══ */
 .sc3{min-height:180vh;background:#100e0c}
-.proj-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:100px 60px 0}
+.proj-inner{position:relative;z-index:2;max-width:1100px;width:100%;padding:100px 60px 100px}
 .proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(245,240,232,0.07);margin-top:44px}
 .proj-card{background:#130f0d;padding:30px 34px;transition:background 0.35s;cursor:default}
 .proj-card:hover{background:#1e1916}
@@ -855,6 +870,157 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.9); }
   animation: tw-blink 1s step-end infinite;
 }
 @keyframes tw-blink { 50% { opacity: 0; } }
+
+/* ═══ FLOATING MUSIC BUTTON (upgraded) ═══ */
+#music-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 8500;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(245,240,232,0.92);
+  border: 1px solid var(--line);
+  box-shadow: 0 4px 18px rgba(46,42,36,0.14);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
+}
+#music-fab:hover {
+  background: var(--accent);
+  box-shadow: 0 6px 24px rgba(192,113,79,0.35);
+  transform: translateY(-2px);
+}
+#music-fab:hover .fab-bars { color: #f5f0e8; }
+body.dark-ui #music-fab {
+  background: rgba(30,25,20,0.88);
+  border-color: rgba(245,240,232,0.1);
+}
+body.dark-ui #music-fab:hover { background: var(--accent); }
+.fab-bars { display: flex; align-items: flex-end; gap: 2px; height: 16px; color: var(--accent); transition: color 0.25s; }
+.fab-bars span { display: block; width: 2.5px; background: currentColor; border-radius: 1px; transform-origin: bottom; }
+.fab-bars span:nth-child(1) { height: 6px; }
+.fab-bars span:nth-child(2) { height: 10px; }
+.fab-bars span:nth-child(3) { height: 14px; }
+.fab-bars span:nth-child(4) { height: 8px; }
+#music-fab.playing .fab-bars span:nth-child(1) { animation: ab1 0.8s ease-in-out infinite; }
+#music-fab.playing .fab-bars span:nth-child(2) { animation: ab2 0.6s ease-in-out infinite; }
+#music-fab.playing .fab-bars span:nth-child(3) { animation: ab3 1.0s ease-in-out infinite; }
+#music-fab.playing .fab-bars span:nth-child(4) { animation: ab2 0.7s ease-in-out infinite 0.15s; }
+#music-fab-tooltip {
+  position: fixed;
+  right: 76px;
+  bottom: 36px;
+  z-index: 8500;
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: rgba(245,240,232,0.95);
+  border: 1px solid var(--line);
+  padding: 5px 10px;
+  border-radius: 3px;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+#music-fab:hover ~ #music-fab-tooltip,
+#music-fab:focus ~ #music-fab-tooltip { opacity: 1; transform: none; }
+@media(max-width:768px){
+  #music-fab { right: 16px; bottom: 70px; width: 40px; height: 40px; }
+  #music-fab-tooltip { display: none; }
+}
+
+/* ═══ CLASSIC MODE TOGGLE BUTTON ═══ */
+#classic-btn {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 8500;
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: rgba(245,240,232,0.88);
+  border: 1px solid var(--line);
+  padding: 8px 14px;
+  border-radius: 3px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.25s, background 0.25s, border-color 0.25s;
+}
+#classic-btn:hover { color: var(--accent); border-color: rgba(192,113,79,0.4); }
+body.dark-ui #classic-btn {
+  background: rgba(30,25,20,0.88);
+  border-color: rgba(245,240,232,0.1);
+  color: rgba(245,240,232,0.4);
+}
+body.classic-mode #classic-btn { color: var(--accent); border-color: var(--accent); }
+@media(max-width:768px){
+  #classic-btn { left: 12px; bottom: 70px; font-size: 7px; padding: 7px 10px; }
+}
+
+/* ═══ CLASSIC MODE STYLES ═══ */
+body.classic-mode {
+  cursor: auto !important;
+}
+/* Hide all canvas overlays and decorative layers */
+body.classic-mode #grain,
+body.classic-mode #cursor-fx,
+body.classic-mode canvas.fx,
+body.classic-mode #start-wind,
+body.classic-mode .big-word,
+body.classic-mode .para-layer,
+body.classic-mode .sc0-float1,
+body.classic-mode .sc0-float2,
+body.classic-mode .s-shape,
+body.classic-mode #progress-bar,
+body.classic-mode #side-name {
+  display: none !important;
+}
+/* Kill every named CSS animation explicitly */
+body.classic-mode .sway,
+body.classic-mode .cta-arr,
+body.classic-mode .s-pulse,
+body.classic-mode .tw-cursor,
+body.classic-mode .abars span,
+body.classic-mode .fab-bars span,
+body.classic-mode .sc0-float1,
+body.classic-mode .sc0-float2,
+body.classic-mode .s-s1,
+body.classic-mode .s-s2,
+body.classic-mode .s-s3,
+body.classic-mode .s-corner,
+body.classic-mode .s-eye,
+body.classic-mode .s-name,
+body.classic-mode .s-sub,
+body.classic-mode .s-btn,
+body.classic-mode .s-vol {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+/* s-vol is centered via translateX, preserve that */
+body.classic-mode .s-vol {
+  transform: translateX(-50%) !important;
+}
+/* Reveal all content immediately */
+body.classic-mode .reveal { opacity: 1 !important; transform: none !important; }
+body.classic-mode .award-row { opacity: 1 !important; transform: none !important; }
+/* Keep scene backgrounds */
+body.classic-mode .sc0 { background: var(--bg) !important; }
+body.classic-mode .sc1 { background: #1f1c18 !important; }
+body.classic-mode .sc3 { background: #100e0c !important; }
 </style>
 </head>
 <body>
@@ -871,13 +1037,24 @@ body.dark-ui .snav-item:hover .snav-label { color: rgba(245,240,232,0.9); }
 <div id="side-name">Alina Nadeem</div>
 <!-- CHAPTER LABEL -->
 <div id="chapter-label">01 · Intro</div>
-<!-- AUDIO BUTTON -->
-<button id="audio-btn" aria-label="Toggle music">
+<!-- AUDIO BUTTON (hidden – FAB below handles UI) -->
+<button id="audio-btn" aria-label="Toggle music" style="display:none">
   <div class="abars">
     <span></span><span></span><span></span><span></span>
   </div>
   <span id="audio-lbl">Music off</span>
 </button>
+
+<!-- FLOATING MUSIC FAB -->
+<button id="music-fab" aria-label="Toggle music (M)">
+  <div class="fab-bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+</button>
+<div id="music-fab-tooltip">Music · Press M</div>
+
+<!-- CLASSIC MODE TOGGLE -->
+<button id="classic-btn" aria-label="Toggle classic mode">Classic mode</button>
 
 <!-- ══════════════════════════════════════════ -->
 <!-- SIDE NAV -->
@@ -1524,15 +1701,67 @@ function toggleMusic() {
 }
 
 function updateAudioBtn(on) {
-
   const btn = document.getElementById('audio-btn');
   const lbl = document.getElementById('audio-lbl');
-
   btn.classList.toggle('playing', on);
   lbl.textContent = on ? 'Music on' : 'Music off';
+
+  // Sync floating FAB
+  const fab = document.getElementById('music-fab');
+  if (fab) fab.classList.toggle('playing', on);
 }
 
 document.getElementById('audio-btn').addEventListener('click', toggleMusic);
+
+// Floating FAB click
+const musicFab = document.getElementById('music-fab');
+if (musicFab) musicFab.addEventListener('click', toggleMusic);
+
+// Keyboard shortcut: M = toggle music
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'm' || e.key === 'M') {
+    if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') return;
+    toggleMusic();
+  }
+});
+
+// Classic mode toggle
+let classicMode = false;
+window.__classicMode = false; // read by all rAF loops to pause themselves
+
+(function() {
+  const btn = document.getElementById('classic-btn');
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    classicMode = !classicMode;
+    window.__classicMode = classicMode;
+    document.body.classList.toggle('classic-mode', classicMode);
+    btn.textContent = classicMode ? 'Immersive mode' : 'Classic mode';
+
+    if (classicMode) {
+      // Clear all canvases so nothing is frozen mid-frame visibly
+      ['grain','cursor-fx','cx0','cx1','cx2','cx3','cx4','cx5','start-wind'].forEach(id => {
+        const cv = document.getElementById(id);
+        if (cv && cv.getContext) {
+          const ctx = cv.getContext('2d');
+          ctx.clearRect(0, 0, cv.width, cv.height);
+        }
+      });
+      // Reset transforms left by parallax/sway loops
+      const hg = document.querySelector('.hero-grid');
+      if (hg) hg.style.transform = '';
+      document.querySelectorAll('.big-word').forEach(el => el.style.transform = '');
+      // Restore cursor to default
+      document.documentElement.style.cursor = 'auto';
+      document.body.style.cursor = 'auto';
+    } else {
+      // Restore custom cursor
+      document.documentElement.style.cursor = '';
+      document.body.style.cursor = '';
+      setTimeout(triggerVisible, 100);
+    }
+  });
+})();
 
 // Start Clair Obscur on first interaction
 function startAudioOnFirstInteraction() {
@@ -1624,6 +1853,8 @@ function onScroll() {
     document.getElementById('side-name').textContent = SIDE_NAMES[ci];
     const dark = DARK_SCENES.has(ci);
     document.body.classList.toggle('dark-ui', dark);
+    // Preserve classic-mode class across scene changes
+    if (classicMode) document.body.classList.add('classic-mode');
     // Update side nav active state
     document.querySelectorAll('.snav-item').forEach((btn, i) => {
       btn.classList.toggle('active', i === ci);
@@ -1677,6 +1908,7 @@ function triggerVisible() {
     }
     ctx.putImageData(img, 0, 0);
     fr++;
+    if (window.__classicMode) { ctx.clearRect(0, 0, w, h); setTimeout(draw, 200); return; }
     if (fr % 3 === 0) setTimeout(draw, 55); else requestAnimationFrame(draw);
   }
   draw();
@@ -1736,6 +1968,7 @@ function triggerVisible() {
     });
 
     function loop() {
+      if (window.__classicMode) { ctx.clearRect(0, 0, W, H); requestAnimationFrame(loop); return; }
       ctx.clearRect(0, 0, W, H);
       particles.forEach((p, i) => {
         p.x += p.vx; p.y += p.vy; p.life -= p.decay;
@@ -1764,6 +1997,7 @@ function triggerVisible() {
     my = (e.clientY / window.innerHeight - 0.5) * 2;
   });
   function tick() {
+    if (window.__classicMode) { requestAnimationFrame(tick); return; }
     cx += (mx - cx) * 0.06;
     cy += (my - cy) * 0.06;
     // Apply depth to big words
@@ -1792,7 +2026,7 @@ function triggerVisible() {
     scenes.forEach((s, i) => {
       if (sc.scrollTop >= s.offsetTop - window.innerHeight * 0.5) ci = i;
     });
-    if (ci !== lastScene && lastScene !== -1) {
+    if (ci !== lastScene && lastScene !== -1 && !window.__classicMode) {
       const wipe = document.getElementById('wipe');
       wipe.classList.add('in');
       setTimeout(() => { wipe.classList.remove('in'); wipe.classList.add('out'); }, 80);
@@ -1845,6 +2079,7 @@ function triggerVisible() {
   }, { passive: true });
 
   function loop() {
+    if (window.__classicMode) { ctx.clearRect(0, 0, W, H); requestAnimationFrame(loop); return; }
     ctx.clearRect(0, 0, W, H);
     strokes = strokes.filter(s => s.life > 0);
     strokes.forEach(s => {
@@ -2160,6 +2395,7 @@ window.addEventListener('resize', triggerVisible);
   for (let i = 0; i < 50; i++) EMBERS.push(makeEmber(true));
 
   function loop() {
+    if (window.__classicMode) { ctx.clearRect(0,0,W,H); requestAnimationFrame(loop); return; }
     ctx.clearRect(0,0,W,H);
     updateGust();
 
@@ -2302,6 +2538,7 @@ window.addEventListener('resize', triggerVisible);
   }
 
   function cursorLoop() {
+    if (window.__classicMode) { ctx.clearRect(0, 0, W, H); requestAnimationFrame(cursorLoop); return; }
     ctx.clearRect(0, 0, W, H);
     tick++;
     idleTimer++;

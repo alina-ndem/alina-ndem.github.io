@@ -2017,24 +2017,24 @@ function triggerVisible() {
 })();
 
 // ════════════════════════════════════════════════
-// SCENE TRANSITION FLASH (The Boat: dramatic cuts)
+// SCENE TRANSITION FLASH — disabled per feedback (too fast/jarring on scroll)
 // ════════════════════════════════════════════════
-(function(){
-  let lastScene = -1;
-  sc.addEventListener('scroll', () => {
-    let ci = 0;
-    scenes.forEach((s, i) => {
-      if (sc.scrollTop >= s.offsetTop - window.innerHeight * 0.5) ci = i;
-    });
-    if (ci !== lastScene && lastScene !== -1 && !window.__classicMode) {
-      const wipe = document.getElementById('wipe');
-      wipe.classList.add('in');
-      setTimeout(() => { wipe.classList.remove('in'); wipe.classList.add('out'); }, 80);
-      setTimeout(() => { wipe.classList.remove('out'); }, 560);
-    }
-    lastScene = ci;
-  }, { passive: true });
-})();
+// (function(){
+//   let lastScene = -1;
+//   sc.addEventListener('scroll', () => {
+//     let ci = 0;
+//     scenes.forEach((s, i) => {
+//       if (sc.scrollTop >= s.offsetTop - window.innerHeight * 0.5) ci = i;
+//     });
+//     if (ci !== lastScene && lastScene !== -1 && !window.__classicMode) {
+//       const wipe = document.getElementById('wipe');
+//       wipe.classList.add('in');
+//       setTimeout(() => { wipe.classList.remove('in'); wipe.classList.add('out'); }, 80);
+//       setTimeout(() => { wipe.classList.remove('out'); }, 560);
+//     }
+//     lastScene = ci;
+//   }, { passive: true });
+// })();
 
 // ════════════════════════════════════════════════
 // SCENE CANVAS: LIVE INK-STROKE LINES (The Boat style)

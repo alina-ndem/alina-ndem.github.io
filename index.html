@@ -1124,6 +1124,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
       </div>
     </div>
     <div class="hero-stats reveal from-right" style="transition-delay:0.5s">
+      <div class="stat-card"><div class="stat-n">Guinness World Records</div><div class="stat-l">Certificate Holder · Most Users in an AI Video Lesson (14,075 participants)</div></div>
       <div class="stat-card"><div class="stat-n">700K+</div><div class="stat-l">Ad campaign reach</div></div>
       <div class="stat-card"><div class="stat-n">1,000</div><div class="stat-l">Customers in 2 months</div></div>
       <div class="stat-card"><div class="stat-n">Summa Cum Laude</div><div class="stat-l">B.S. Interpersonal/Organizational Communication & Minor in Business · ECU</div></div>
@@ -1148,7 +1149,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
       <div class="about-text reveal from-left" style="transition-delay:0.25s">
         <p>I hold a <strong>B.S. in Interpersonal &amp; Organizational Communication</strong> (Summa Cum Laude) with a Business Administration minor from East Carolina University. Since then, I've continued building technical and analytical skills throughout my career.</p>
         <p>I'm currently the <strong>CEO of Pawsitive Vibes Veterinary Clinic</strong> in Al Ain, where I led the launch end-to-end: licensing, branding, hiring, financial modeling, and growth campaigns that reached <strong>700K+ users</strong> and onboarded 1,000 customers in two months.</p>
-        <p>Alondside that, I'm in the <strong>Professional Program in Data Analysis at UC Berkeley Extension</strong>, working with Python, R, SQL, Tableau, and real datasets. Certified <strong>QuickBooks Online ProAdvisor</strong>, <strong>Microsoft Office Specialist</strong>, <strong>Marketing Specialist</strong>, and <strong>Google IT Support Specialist</strong>.</p>
+        <p>Alongside that, I'm a <strong>UC Berkeley Extension alum</strong>, having completed the <strong>Professional Program in Data Analysis</strong>, working with Python, R, SQL, Tableau, and real datasets. Certified <strong>QuickBooks Online ProAdvisor</strong>, <strong>Microsoft Office Specialist</strong>, <strong>Marketing Specialist</strong>, and <strong>Google IT Support Specialist</strong>.</p>
       </div>
       <div class="skills-grid reveal from-right" style="transition-delay:0.35s">
         <div class="sk-row">Python · R · SQL<span>Analysis</span></div>
@@ -1206,7 +1207,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
 
     <div class="exp-row data reveal from-bottom" style="transition-delay:0.28s">
       <div class="exp-stripe"></div>
-      <div class="exp-date">Mar 2024 – Present</div>
+      <div class="exp-date">Mar 2024 – Aug 2026</div>
       <div>
         <div class="exp-role">Data Analytics Apprentice</div>
         <div class="exp-org">UC Berkeley Extension · Berkeley, California</div>
@@ -1305,6 +1306,36 @@ body.classic-mode .sc3 { background: #100e0c !important; }
     <div class="proj-grid">
       <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.2s">
         <div class="proj-num">01</div>
+        <div class="proj-name">Paw Guardian — Veterinary Management App</div>
+        <p class="proj-desc">I built this app for my own business, Pawsitive Vibes Veterinary Clinic, to replace the spreadsheets we were using to track patients, appointments, and inventory. Using SQL, I built out the entire relational schema myself, tables for owners, patients, medical histories, and inventory, then populated and managed the actual patient records and inventory data through it. I set up real-time database triggers in Supabase so every update syncs instantly across devices, no more stale or conflicting records. I designed the frontend in Lovable and handled all the data modeling and backend logic myself. The app also integrates GPT-4o as a built-in AI assistant staff can query for quick veterinary reference info without leaving the workflow.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Lovable</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Supabase</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">SQL</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Relational Database Design</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Real-Time Data Sync</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">LLM Integration (GPT-4o)</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span>
+        </div>
+      </div>
+      <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.24s">
+        <div class="proj-num">02</div>
+        <div class="proj-name">World at Work Atlas &amp; Convergence vs. Concentration — Data Visualization Final Project, UC Berkeley Extension</div>
+        <p class="proj-desc"><strong>Macro view: World at Work Atlas.</strong> An explorable choropleth map covering GDP, GDP per capita, employment, unemployment, and poverty across 265 countries and 66 years. A time slider and metric selector let you scrub through history and switch indicators, with countries color-coded by quantile ranking so patterns stand out clearly at a glance, built for browsing and comparison rather than a single guided story.</p>
+        <p class="proj-desc"><strong>Micro view: Convergence vs. Concentration.</strong> A story-driven companion piece that zooms into how growth is actually distributed. It opens with a Gapminder-style animated scatterplot, then moves through rich–poor ratio and dollar-gap charts before landing on within-country inequality measures: Gini coefficient, Palma ratio, and income deciles, to look at whether gains are shared broadly or concentrated at the top.</p>
+        <p class="proj-desc">Both run on independent Python and R data pipelines that clean and merge data from the World Bank, the World Bank Poverty and Inequality Platform, Our World in Data, and Natural Earth, reconciling ISO3 codes and inconsistent country names across six source files. The D3 visuals were also rebuilt as static charts in Python and R to validate the pipeline end to end.</p>
+        <div class="tags">
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">D3.js</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Python</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">R</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Data Cleaning &amp; ETL</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Choropleth Mapping</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">Data Storytelling</span>
+          <span class="tag" style="border-color:rgba(245,240,232,0.12);color:rgba(245,240,232,0.32)">World Bank / OWID Data</span>
+        </div>
+      </div>
+      <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.24s">
+        <div class="proj-num">03</div>
         <div class="proj-name">Pawsitive Vibes Veterinary Clinic — Website &amp; Digital Marketing</div>
         <p class="proj-desc">Built the clinic's full website from scratch. Managed 8 social media accounts and launched 40+ Google Ads and Meta Ads campaigns that reached 700K+ users, onboarding 1,000 customers in two months. Integrated Google Analytics to track traffic, conversions, and ROI — producing regular performance reports to continuously optimize campaigns.</p>
         <div class="tags">
@@ -1316,7 +1347,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.28s">
-        <div class="proj-num">02</div>
+        <div class="proj-num">04</div>
         <div class="proj-name">Pet Market Trend Analysis — Python for Data Analysis - UC Berkeley Extension</div>
         <p class="proj-desc">Final project at UC Berkeley Extension. Analyzed U.S. online pet supply sales data — cleaning, merging, and visualizing real transaction datasets alongside competitor data. Uncovered patterns in pricing, seasonality, and customer spending habits using Python.</p>
         <div class="tags">
@@ -1328,7 +1359,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.36s">
-        <div class="proj-num">03</div>
+        <div class="proj-num">05</div>
         <div class="proj-name">Starbucks Malaysia — Customer Segmentation Analysis - UC Berkeley Extension</div>
         <p class="proj-desc">End-to-end customer analytics study using R. Applied Ward's Hierarchical Clustering and K-Means Clustering to segment customers by satisfaction, loyalty, and purchasing behavior. Developed an ACSI-based satisfaction model and translated findings into data-driven retention and loyalty program recommendations.</p>
         <div class="tags">
@@ -1340,7 +1371,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.44s">
-        <div class="proj-num">04</div>
+        <div class="proj-num">06</div>
         <div class="proj-name">Internet Data File Analyzer — Python Program - UC Berkeley Extension</div>
         <p class="proj-desc">Built a Python program for multi-tier dataset analysis: cleaning, min/max/averages/modes/ranks, group-by column operations, and trend exploration. Automated data downloads, used Matplotlib for visualization, and SQLite for data storage. Reduced processing time by 30% and surfaced 25% more insights.</p>
         <div class="tags">
@@ -1352,7 +1383,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.52s">
-        <div class="proj-num">05</div>
+        <div class="proj-num">07</div>
         <div class="proj-name">JPMorgan Chase CADP — Visualization &amp; Business Analysis</div>
         <p class="proj-desc">Built an executive Tableau and Excel visualization dashboard, documented business processes with improvement recommendations, and produced a PowerPoint presentation with stakeholder-facing video walkthrough for JPMorgan's Corporate Analyst Development Program.</p>
         <div class="tags">
@@ -1363,7 +1394,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.6s">
-        <div class="proj-num">06</div>
+        <div class="proj-num">08</div>
         <div class="proj-name">Deloitte Australia — Data Unification &amp; Cybersecurity</div>
         <p class="proj-desc">Created a Python algorithm to merge two incompatible data models. Built a Tableau dashboard, classified data in Excel for business conclusions, and identified the origin of a cybersecurity breach by analyzing web activity logs.</p>
         <div class="tags">
@@ -1375,7 +1406,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="transition-delay:0.68s">
-        <div class="proj-num">07</div>
+        <div class="proj-num">09</div>
         <div class="proj-name">KPMG Forage — Data Analytics Consulting</div>
         <p class="proj-desc">Assessed data quality and proposed mitigation strategies. Built a 3-phase model (data exploration → feature engineering → interpretation) to identify the highest-value customers from 1,000 prospects. Delivered a client-facing dashboard with marketing recommendations for Sprocket Central Pty Ltd.</p>
         <div class="tags">
@@ -1386,7 +1417,7 @@ body.classic-mode .sc3 { background: #100e0c !important; }
         </div>
       </div>
       <div class="proj-card reveal scale-in" style="grid-column:span 2;transition-delay:0.76s">
-        <div class="proj-num">08</div>
+        <div class="proj-num">10</div>
         <div class="proj-name">PPE Training &amp; Safety Awareness Program — Akar Landscaping Services &amp; Agriculture</div>
         <p class="proj-desc">Designed and implemented a multimedia training solution for a construction workforce, combining research, content development, stakeholder analysis, and digital presentation technologies to improve safety awareness and PPE compliance. Created an end-to-end training program using PowerPoint, video integration, and voiceover production while translating regulatory and operational requirements into clear, actionable guidance for employees and supervisors.</p>
         <div class="tags">
@@ -1440,6 +1471,12 @@ body.classic-mode .sc3 { background: #100e0c !important; }
     </div>
 
     <div class="awards-list">
+
+      <div class="award-row highlight">
+        <div class="award-date">Jul 2026</div>
+        <div class="award-name">Guinness World Records Certificate Holder — Most Users in an AI Video Lesson <em>(14,075 participants)</em> <span class="award-badge">★ World Record</span></div>
+        <div class="award-org">Kanz &amp; Ministry of Human Resources and Social Development, Saudi Arabia</div>
+      </div>
 
       <div class="award-row highlight">
         <div class="award-date">Dec 2022</div>
